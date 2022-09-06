@@ -1,0 +1,13 @@
+<ul>
+    {{#each lista_proveedores }}
+        <li>
+            {{ nombre }} - {{ rfc }}
+            <br>
+            <a href="/proveedor/editar/{{proveedor_id}}">Editar</a>
+            <a href="/proveedor/borrar/{{proveedor_id}}">Borrar</a>
+        </li>
+    {{else}}
+        <p>No hay proveedores guardados</p>
+        <a href="/proveedor/nuevo">Agregar nuevo</a>
+    {{/each}}
+</ul>

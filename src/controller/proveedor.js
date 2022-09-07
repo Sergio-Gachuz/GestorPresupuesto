@@ -48,8 +48,6 @@ const editarProveedor = async(req, res) => {
         codigo_postal,
         email
     };
-    console.log(actualizarProveedor);
-    res.send('actualizado')
     await database.query('update proveedor set ? where proveedor_id = ?', [actualizarProveedor, proveedor_id]);
     req.flash('success', 'Proveedor actualizado correctamente');
     res.redirect('/proveedor');

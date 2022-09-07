@@ -7,5 +7,114 @@
     margin: 0;
     --Alegreya: 'Alegreya', serif;
     --Lato: 'Lato', sans-serif;
+    --color-one: #30343F;
+    --color-two: #FAFAFF;
+    --color-three: #E4D9FF;
+    --color-four: #273469;
+    --color-five: #1E2749;
 }
 
+.container-fluid{
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+@media screen and (min-width: 1024px) {
+    .grid{
+        display: grid;
+        grid-template-columns: auto 92.5%;
+        grid-template-rows: 1fr;
+        grid-template-areas:"menu contenido";
+    }
+
+    .content{
+        height: 100vh;
+        width: 100%;
+        grid-area: contenido;
+        padding: 1rem;
+    }
+
+    .sidebar{
+        height: 100vh;
+        width: 6rem;
+        background-color: var(--color-five);
+        transition: width 0.3s;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        grid-area: menu;
+    }
+    
+    .sidebar:hover{
+        width: auto;
+        overflow: visible;
+    }
+
+    .brand{
+        width: 100%;
+        height: 5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .brand img{
+        width: 60px;
+        height: auto;
+    }
+
+    nav{
+        height: 60vh;
+        min-height: 30rem;
+        position: relative;
+        top: 50%;
+        margin-top: -40vh;
+    }
+
+    nav ul{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .nav__link{
+        width: 16rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        text-decoration: none;
+        padding: 1rem 0;
+        color: var(--color-two);
+    }
+
+    .nav__link:hover{
+        background-image: linear-gradient(left, #2a88e6 0.7rem, rgba(255, 255, 255, 0.1) 0.7rem);
+        background-image: linear-gradient(to right, #2a88e6 0.7rem, rgba(255, 255, 255, 0.1) 0.7rem);
+        color: var(--color-two);
+    }
+
+    .nav__icon{
+        font-size: 1.8rem;
+        text-align: right;
+        color: var(--color-two);
+    }
+
+    .nav__text{
+        width: 7.5rem;
+        font-size: 1.4rem;
+        text-align: left;
+        letter-spacing: 0.3px;
+        font-weight: 400;
+        font-family: var(--Alegreya);
+        margin-bottom: 0;
+    }
+
+    .section{
+        width: 100%;
+    }
+}

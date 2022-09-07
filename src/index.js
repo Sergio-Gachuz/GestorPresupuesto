@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -31,6 +32,7 @@ app.engine('.hbs', exphbs.engine({
 app.set('view engine', '.hbs');
 
 //* Middlewares
+app.use(cors());
 app.use(express_session({
     secret: 'prueba',
     resave: false,

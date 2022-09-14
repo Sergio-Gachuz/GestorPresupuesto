@@ -1,7 +1,8 @@
 const database = require('../database');
+const layout = {layout: 'main'};
 
 const obtenerVistaNuevoProveedor = (req, res) =>{
-    res.render('proveedor/nuevo');
+    res.render('proveedor/nuevo', layout);
 }
 
 const añadirProveedor = async(req, res) => { 
@@ -22,7 +23,10 @@ const añadirProveedor = async(req, res) => {
 
 const obtenerProveedores = async(req, res) => {
     const lista_proveedores = await database.query('select * from proveedor')
-    res.render('proveedor/listar', {lista_proveedores});
+    res.render('proveedor/listar', {
+        layout: 'main',
+        lista_proveedores
+    });
 }
 
 const eliminarProveedor = async(req, res)=>{
@@ -35,7 +39,9 @@ const eliminarProveedor = async(req, res)=>{
 const obtenerProveedor = async(req, res)=>{
     const { proveedor_id } = req.params;
     const proveedor = await database.query('select * from proveedor where proveedor_id = ?', [proveedor_id])
-    res.render('proveedor/editar', {proveedor: proveedor[0]})
+    res.render('proveedor/editar', {
+        layout: 'main',
+        proveedor: proveedor[0]})
 }
 
 const editarProveedor = async(req, res) => {

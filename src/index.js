@@ -7,6 +7,7 @@ const path = require('path');
 const mensaje = require('connect-flash');
 const express_session = require('express-session');
 const mysqlStorage = require('express-mysql-session');
+const passport = require('passport');
 
 const datosDB = {
     'host': process.env.host,
@@ -18,13 +19,14 @@ const datosDB = {
 
 //* Inicializaciones
 const app = express();
+require('./lib/passport');
 
 //* Ajustes
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs.engine({
-    defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
+    defaultLayout: false,
+    layoutsDir: path.join(app.get('views'), 'layouts/'),
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
     helpers: require('./lib/handlebars')
@@ -45,10 +47,14 @@ app.use(express.urlencoded({
     extended: false
 }))
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //* Variables Globales
 app.use((req, res, next) =>{
     app.locals.success = req.flash('success');
+    app.locals.message = req.flash('message');
+    app.locals.user = req.user;
     next();
 })
 

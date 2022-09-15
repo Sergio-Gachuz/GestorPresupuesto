@@ -1,0 +1,52 @@
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const database = require('../database');
+const helpers = require('../lib/helpers');
+
+passport.use('local.signin', new LocalStrategy({
+    usernameField: 'usuario',
+    passwordField: 'contrasena',
+    passReqToCallback: true
+}, async(req, username, password, done) => {
+    const rows = await database.query('select * from usuario where usuario = ?', [username]);
+    if (rows.length > 0) {
+        const usuario = rows[0];
+        const validPassword = await helpers.matchPassword(password, usuario.contrasena);
+        (validPassword) ? done(null, usuario, req.flash('sucess','Bienvenido' + usuario.nombre)) : done(null, false, req.flash('message','Contraseña incorrecta'))
+    }else{
+        return done(null, false, req.flash('message','Usuario no existe'));
+    }
+}));
+
+passport.use('local.signup', new LocalStrategy({
+    usernameField: 'usuario',
+    passwordField: 'contrasena',
+    passReqToCallback: true
+}, async(req, username, passoword, done) => {
+
+    const { nombre_completo } = req.body;
+
+    const nuevoUsuario = {
+        usuario: username,
+        nombre_completo,
+        contrasena: passoword,
+    }
+
+    nuevoUsuario.contrasena =  await helpers.encryptPassword(passoword);
+
+    const result = await database.query('insert into usuario set ?', [nuevoUsuario]);
+
+    nuevoUsuario.usuario_id = result.insertId;
+
+    return done(null, nuevoUsuario);
+
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.usuario_id);
+})
+
+passport.deserializeUser( async(usuario_id, done) => {
+    const rows = await database.query('select * from usuario where usuario_id = ?', [usuario_id]);
+    done(null, rows[0]);
+})

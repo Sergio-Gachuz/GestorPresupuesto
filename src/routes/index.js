@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const {vistaLogIn} = require('../controller/usuario');
 
-router.get('/', (req, res) => {
-    res.send('Hola mundo');
-});
+router.get('/', vistaLogIn)
 
 module.exports = router;

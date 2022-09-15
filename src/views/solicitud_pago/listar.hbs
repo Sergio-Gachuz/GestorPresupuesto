@@ -1,0 +1,19 @@
+<div class="section">
+    <div class="card">
+        <h2 class="card-title">Solicitudes de Pagos</h2>
+        <a href="/solicitud_pago/nuevo">Agregar nuevo</a>
+        <ul>
+            {{#each lista_solicitud_pago }}
+                <li>
+                    {{ fecha }} - {{ importe }}
+                    <br>
+                    <a href="/solicitud_pago/editar/{{no_folio}}">Editar</a>
+                    <a href="/solicitud_pago/borrar/{{no_folio}}">Borrar</a>
+                </li>
+            {{else}}
+                <p>No hay partidas guardadas</p>
+                <a href="/solicitud_pago/nuevo">Agregar nuevo</a>
+            {{/each}}
+        </ul>    
+    </div>
+</div>

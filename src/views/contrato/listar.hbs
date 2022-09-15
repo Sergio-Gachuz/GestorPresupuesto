@@ -1,0 +1,19 @@
+<div class="section">
+    <div class="card">
+        <h2 class="card-title">Contratos</h2>
+        <a href="/contrato/nuevo">Agregar nuevo</a>
+        <ul>
+            {{#each lista_contratos }}
+                <li>
+                    {{ no_contrato }} - {{ vigencia }}
+                    <br>
+                    <a href="/contrato/editar/{{contrato_id}}">Editar</a>
+                    <a href="/contrato/borrar/{{contrato_id}}">Borrar</a>
+                </li>
+            {{else}}
+                <p>No hay contratos guardados</p>
+                <a href="/contrato/nuevo">Agregar nuevo</a>
+            {{/each}}
+        </ul>    
+    </div>
+</div>

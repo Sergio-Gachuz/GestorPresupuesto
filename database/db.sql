@@ -58,12 +58,10 @@ create table solicitud_pago(
     concepto varchar(250) not null,
     partida_id int not null,
     proveedor_id int not null,
-    usuario_id int not null,
     created_at timestamp,
     updated_at timestamp,
-    constraint contratoFK1 foreign key (partida_id) references partida(partida_id),
-    constraint contratoFK2 foreign key (proveedor_id) references proveedor(proveedor_id),
-    constraint contratoFK3 foreign key (usuario_id) references usuario(usuario_id)
+    constraint SolicitudFK1 foreign key (partida_id) references partida(partida_id),
+    constraint SolicitudFK2 foreign key (proveedor_id) references proveedor(proveedor_id)
 )
 
 insert into tipo_contrato (descripcion) values ("Indeterminado"),("Temporal");

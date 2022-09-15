@@ -1,0 +1,19 @@
+<form action="/partida/editar/{{partida.partida_id}}" method="POST">
+
+    <label for="no_partida">Numero de Partida</label>
+    <input class="" type="text" name="no_partida" value="{{partida.no_partida}}">
+
+    <label for="descripcion">Descripcion</label>
+    <input class="" type="text" name="descripcion" value="{{partida.descripcion}}">
+
+    <label for="presupuesto_inicial">Presupuesto Inicial</label>
+    <input class="" type="text" name="presupuesto_inicial"value="{{partida.presupuesto_inicial}}">
+
+    <label for="egresos">Egresos</label>
+    <input class="" type="text" name="egresos" value="{{partida.egresos}}">
+
+    <label for="presupuesto_actual">Presupuesto Actual</label>
+    <input class="" type="text" name="presupuesto_actual" value="{{partida.presupuesto_actual}}">
+
+    <button>Actualizar</button>
+</form>

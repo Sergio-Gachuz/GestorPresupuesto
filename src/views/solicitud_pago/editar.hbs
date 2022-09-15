@@ -1,0 +1,19 @@
+<form action="/solicitud_pago/editar/{{solicitud_pago.no_folio}}" method="POST">
+
+    <label for="fecha">Fecha</label>
+    <input class="" type="date" name="fecha" value="{{solicitud_pago.fecha}}">
+
+    <label for="importe">Importe</label>
+    <input class="" type="text" name="importe"value="{{solicitud_pago.importe}}">
+
+    <label for="concepto">Concepto</label>
+    <input class="" type="text" name="concepto" value="{{solicitud_pago.concepto}}">
+
+    <label for="partida_id">Partida</label>
+    <input class="" type="text" name="partida_id" value="{{solicitud_pago.partida_id}}">
+
+    <label for="proveedor_id">Proveedor</label>
+    <input class="" type="text" name="proveedor_id" value="{{solicitud_pago.proveedor_id}}">
+
+    <button>Actualizar</button>
+</form>

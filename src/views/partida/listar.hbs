@@ -1,0 +1,19 @@
+<div class="section">
+    <div class="card">
+        <h2 class="card-title">Partidas</h2>
+        <a href="/partida/nuevo">Agregar nuevo</a>
+        <ul>
+            {{#each lista_partidas }}
+                <li>
+                    {{ no_partida }} - {{ presupuesto_inicial }}
+                    <br>
+                    <a href="/partida/editar/{{partida_id}}">Editar</a>
+                    <a href="/partida/borrar/{{partida_id}}">Borrar</a>
+                </li>
+            {{else}}
+                <p>No hay partidas guardados</p>
+                <a href="/partida/nuevo">Agregar nuevo</a>
+            {{/each}}
+        </ul>    
+    </div>
+</div>

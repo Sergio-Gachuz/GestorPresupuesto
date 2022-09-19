@@ -1,22 +1,43 @@
-<div class="section">
-    <div class="card">
-        <div class="title">
-            <h2 class="card-title">Lista de Proveedores</h2>
-            <a class="boton nuevo" href="/proveedor/nuevo">Agregar nuevo</a>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Proveedores</h3>
+            </div>
+            <div class="contenido">
+                {{> alerta }}
+                <a class="boton azul" href="/proveedor/nuevo">Agregar nuevo</a>
+                <hr>
+                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                    <thead>
+                        <th>Nombre/Razón Social</th>
+                        <th>RFC</th>
+                        <th>Codigo Postal</th>
+                        <th>Domicilio</th>
+                        <th>Email</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each lista_proveedores }}
+                            <tr>
+                                <td data-label="Nombre">{{nombre}}</td>
+                                <td data-label="RFC">{{rfc}}</td>
+                                <td data-label="Codigo Postal">{{codigo_postal}}</td>
+                                <td data-label="Domicilio">{{domicilio}}</td>
+                                <td data-label="Email">{{email}}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="/proveedor/editar/{{proveedor_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" href="/proveedor/borrar/{{proveedor_id}}"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>No hay provvedores registrados</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <ul>
-            {{#each lista_proveedores }}
-                <li>
-                    {{ nombre }} - {{ rfc }}
-                    <br>
-                    <a href="/proveedor/editar/{{proveedor_id}}">Editar</a>
-                    <a href="/proveedor/borrar/{{proveedor_id}}">Borrar</a>
-                </li>
-            {{else}}
-                <p>No hay proveedores guardados</p>
-                <a href="/proveedor/nuevo">Agregar nuevo</a>
-            {{/each}}
-        </ul>    
-    </div>
+    </div>    
 </div>
-

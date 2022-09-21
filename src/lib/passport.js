@@ -24,8 +24,8 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 }, async(req, username, passoword, done) => {
 
-    const { nombre_completo } = req.body;
-
+    const { nombre_completo, cod__ver } = req.body;
+if (cod__ver == "abc") {
     const nuevoUsuario = {
         usuario: username,
         nombre_completo,
@@ -39,7 +39,9 @@ passport.use('local.signup', new LocalStrategy({
     nuevoUsuario.usuario_id = result.insertId;
 
     return done(null, nuevoUsuario);
-
+} else{
+    return done(null, false, req.flash('message','Codigo de verificacion no valido'));
+}
 }));
 
 passport.serializeUser((user, done) => {

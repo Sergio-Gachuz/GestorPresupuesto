@@ -3,7 +3,8 @@
         <img src="/img/logo.png" alt="Logo" width="300px" height="300px">
     </div>
     <div class="section__form">
-        <form action="/signup" method="POST">
+        <form action="/signup" method="POST">  
+        {{> alerta }} 
         <p>Llene el siguiente formulario</p>
             <div class="form-group">
                 <input class="section__form__input" type="text" name="nombre_completo" autocomplete="off" required>

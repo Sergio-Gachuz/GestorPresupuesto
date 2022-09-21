@@ -1,19 +1,45 @@
-<div class="section">
-    <div class="card">
-        <h2 class="card-title">Partidas</h2>
-        <a href="/partida/nuevo">Agregar nuevo</a>
-        <ul>
-            {{#each lista_partidas }}
-                <li>
-                    {{ no_partida }} - {{ presupuesto_inicial }}
-                    <br>
-                    <a href="/partida/editar/{{partida_id}}">Editar</a>
-                    <a href="/partida/borrar/{{partida_id}}">Borrar</a>
-                </li>
-            {{else}}
-                <p>No hay partidas guardados</p>
-                <a href="/partida/nuevo">Agregar nuevo</a>
-            {{/each}}
-        </ul>    
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Partidas</h3>
+            </div>
+            <div class="contenido">
+                {{> alerta }}
+                <div class="acciones">
+                    <a class="boton azul" href="/partida/nuevo">Nueva Partida</a>
+                </div>
+                <hr>
+                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                    <thead>
+                        <th>Numero de Partida</th>
+                        <th>Descripcion</th>
+                        <th>Presupuesto Inicial</th>
+                        <th>Egresos</th>
+                        <th>Presupuesto Actual</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each lista_partidas }}
+                            <tr>
+                                <td data-label="no_partida">{{no_partida}}</td>
+                                <td data-label="descripcion">{{descripcion}}</td>
+                                <td data-label="presupuesto_inicial">{{presupuesto_inicial}}</td>
+                                <td data-label="egresos">{{egresos}}</td>
+                                <td data-label=" presupuesto_actual">{{ presupuesto_actual}}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="/partida/editar/{{partida_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" href="/partida/borrar/{{partida_id}}"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>No hay partidas registradas</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
 </div>

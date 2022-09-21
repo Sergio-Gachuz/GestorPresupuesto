@@ -186,23 +186,48 @@ h1, h2, h3{
     align-items: center;
 }
 
+div.acciones{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+table thead{
+    background-color: var(--color-four);
+    color: var(--color-three);
+}
+
+div .buttons-pdf,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .boton{
-    margin: 1rem 0;
+    margin: 1rem 5px;
     width: 12rem;
     padding: 0.5rem;
     font-size: medium;
     font-family: var(--Alegreya);
-    color: var(--color-two)
+    color: var(--color-two) !important;
+    text-decoration: none;
+    border: var(--color-five) 2px solid !important;
+    text-align: center;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    width: auto;
+}
+
+div .buttons-pdf,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
 .boton.azul{
     background: var(--color-five);
 }
 
+div .buttons-pdf:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
 .boton.azul:hover{
-    background: var(--color-two);
-    color: var(--color-five);
+    background: var(--color-two) !important;
+    color: var(--color-five) !important;
     transition: 0.5s;
+    border: var(--color-five) 2px solid;
 }
 
 .boton.rojo{
@@ -238,15 +263,21 @@ h1, h2, h3{
         align-items: center;
     }
 
-    #signup{
+    #signup,
+    #contenido__form{
         width: 50rem;
     }
 
-    #signup form{
+    #contenido__form{
+        margin: 0 auto;
+    }
+
+    #signup form,
+    #contenido__form form{
         width: 100%;
     }
 
-    #signup p{
+    form p{
         font-size: 1.4rem;
         font-family: var(--Lato);
         font-weight: 700;
@@ -256,6 +287,10 @@ h1, h2, h3{
 
     #signup .section__form__label{
         margin-left: -11.3rem;
+    }
+
+    #contenido__form .section__form__label{
+        margin-left: -25rem;
     }
 
     .section__login .section__form .boton{

@@ -1,5 +1,6 @@
 $(document).ready( function () {
     $('#table').DataTable({
+        dom: 'Bfrtip',
         ordering: true,
         responsive: true,
         language: {
@@ -13,5 +14,8 @@ $(document).ready( function () {
             lengthMenu: "Mostrar _MENU_ registros",
             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
         },
+        buttons: [
+            'pdf'
+        ]
     });
 } );

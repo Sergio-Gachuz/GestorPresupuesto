@@ -1,7 +1,8 @@
 const database = require('../database');
+const layout = {layout: 'main'};
 
 const obtenerVistaNuevoPartida = (req, res) =>{
-    res.render('partida/nuevo');
+    res.render('partida/nuevo', layout);
 }
 
 const añadirPartida = async(req, res) => { 
@@ -21,7 +22,7 @@ const añadirPartida = async(req, res) => {
 
 const obtenerPartidas = async(req, res) => {
     const lista_partidas = await database.query('select * from partida')
-    res.render('partida/listar', {lista_partidas});
+    res.render('partida/listar', {layout: 'main',lista_partidas});
 }
 
 const eliminarPartida = async(req, res)=>{
@@ -34,7 +35,7 @@ const eliminarPartida = async(req, res)=>{
 const obtenerPartida = async(req, res)=>{
     const { partida_id } = req.params;
     const partida = await database.query('select * from partida where partida_id = ?', [partida_id])
-    res.render('partida/editar', {partida: partida[0]})
+    res.render('partida/editar', {layout: 'main', partida: partida[0]})
 }
 
 const editarPartida = async(req, res) => {

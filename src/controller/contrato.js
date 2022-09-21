@@ -1,7 +1,8 @@
 const database = require('../database');
+const layout = {layout: 'main'};
 
 const obtenerVistaNuevoContrato = (req, res) =>{
-    res.render('contrato/nuevo');
+    res.render('contrato/nuevo', layout);
 }
 
 const añadirContrato = async(req, res) => { 
@@ -22,7 +23,7 @@ const añadirContrato = async(req, res) => {
 
 const obtenerContratos = async(req, res) => {
     const lista_contratos = await database.query('select * from contrato')
-    res.render('contrato/listar', {lista_contratos});
+    res.render('contrato/listar', {layout: 'main',lista_contratos});
 }
 
 const eliminarContrato = async(req, res)=>{
@@ -35,7 +36,7 @@ const eliminarContrato = async(req, res)=>{
 const obtenerContrato = async(req, res)=>{
     const { contrato_id } = req.params;
     const contrato = await database.query('select * from contrato where contrato_id = ?', [contrato_id])
-    res.render('contrato/editar', {contrato: contrato[0]})
+    res.render('contrato/editar', {layout: 'main', contrato: contrato[0]})
 }
 
 const editarContrato = async(req, res) => {

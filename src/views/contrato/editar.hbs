@@ -1,0 +1,22 @@
+<form action="/contrato/editar/{{contrato.contrato_id}}" method="POST">
+
+    <label for="no_contrato">Numero de Contrato</label>
+    <input class="" type="text" name="no_contrato" value="{{contrato.no_contrato}}">
+
+    <label for="suma_total">Suma Total</label>
+    <input class="" type="text" name="suma_total" value="{{contrato.suma_total}}">
+
+    <label for="vigencia">Vigencia</label>
+    <input class="" type="text" name="vigencia"value="{{contrato.vigencia}}">
+
+    <label for="tipo_id">Tipo de Contrato </label>
+    <input class="" type="text" name="tipo_id" value="{{contrato.tipo_id}}">
+
+    <label for="proveedor_id">Proveedor</label>
+    <input class="" type="text" name="proveedor_id" value="{{contrato.proveedor_id}}">
+
+    <label for="partida_id">Numero de partida</label>
+    <input class="" type="text" name="partida_id" value="{{contrato.partida_id}}">
+
+    <button>Actualizar</button>
+</form>

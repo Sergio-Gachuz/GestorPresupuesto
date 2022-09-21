@@ -1,7 +1,8 @@
 const database = require('../database');
+const layout = {layout: 'main'};
 
 const obtenerVistaNuevoSolicitud_pago = (req, res) =>{
-    res.render('solicitud_pago/nuevo');
+    res.render('solicitud_pago/nuevo', layout);
 }
 
 const añadirSolicitud_pago = async(req, res) => { 
@@ -22,7 +23,7 @@ const añadirSolicitud_pago = async(req, res) => {
 
 const obtenerSolicitud_pagos = async(req, res) => {
     const lista_solicitud_pago = await database.query('select * from solicitud_pago')
-    res.render('solicitud_pago/listar', {lista_solicitud_pago});
+    res.render('solicitud_pago/listar', {layout: 'main',lista_solicitud_pago});
 }
 
 const eliminarSolicitud_pago = async(req, res)=>{
@@ -35,7 +36,7 @@ const eliminarSolicitud_pago = async(req, res)=>{
 const obtenerSolicitud_pago = async(req, res)=>{
     const { no_folio } = req.params;
     const solicitud_pago = await database.query('select * from solicitud_pago where no_folio = ?', [no_folio])
-    res.render('solicitud_pago/editar', {solicitud_pago: solicitud_pago[0]})
+    res.render('solicitud_pago/editar', {layout: 'main', solicitud_pago: solicitud_pago[0]})
 }
 
 const editarSolicitud_pago = async(req, res) => {

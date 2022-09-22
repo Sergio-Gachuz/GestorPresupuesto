@@ -263,6 +263,26 @@ div .buttons-pdf:hover,
         align-items: center;
     }
 
+    div#login{
+        display: block;
+    }
+
+    div#login__titulo{
+        text-align: center;
+    }
+
+    div#login__contenido{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3rem;
+    }
+
+    #signup .alert{
+        width: 80%;
+        margin: 0 auto;
+    }
+
     #signup,
     #contenido__form{
         width: 50rem;

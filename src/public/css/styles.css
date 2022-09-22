@@ -384,7 +384,7 @@ div .buttons-pdf:hover,
         font-weight: 400;
         line-height: 16px;
         margin-left: 0.2rem;
-        transform: translateY(-80%);
+        transform: translateY(-100%);
     }
 
     .section__form .section__form__span{
@@ -616,5 +616,11 @@ div .buttons-pdf:hover,
     
     div.titulo h3{
         padding: 1rem;
+    }
+
+    div#contenido__form .section__form .section__form__input:focus + .section__form__label .section__form__span,
+    div#contenido__form .section__form .section__form__input:valid + .section__form__label .section__form__span{
+        margin-left: -1.6rem;
+        transform: translateY(-100%);
     }
 }

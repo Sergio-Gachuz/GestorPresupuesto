@@ -46,10 +46,11 @@ const obtenerProveedor = async(req, res)=>{
 
 const editarProveedor = async(req, res) => {
     const { proveedor_id } = req.params;
-    const {nombre, razon_social, domicilio, codigo_postal, email} = req.body;
+    const {nombre, razon_social, rfc, domicilio, codigo_postal, email} = req.body;
     const actualizarProveedor = {
         nombre,
         razon_social,
+        rfc,
         domicilio,
         codigo_postal,
         email

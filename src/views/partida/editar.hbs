@@ -1,19 +1,37 @@
-<form action="/partida/editar/{{partida.partida_id}}" method="POST">
-
-    <label for="no_partida">Numero de Partida</label>
-    <input class="" type="text" name="no_partida" value="{{partida.no_partida}}">
-
-    <label for="descripcion">Descripcion</label>
-    <input class="" type="text" name="descripcion" value="{{partida.descripcion}}">
-
-    <label for="presupuesto_inicial">Presupuesto Inicial</label>
-    <input class="" type="text" name="presupuesto_inicial"value="{{partida.presupuesto_inicial}}">
-
-    <label for="egresos">Egresos</label>
-    <input class="" type="text" name="egresos" value="{{partida.egresos}}">
-
-    <label for="presupuesto_actual">Presupuesto Actual</label>
-    <input class="" type="text" name="presupuesto_actual" value="{{partida.presupuesto_actual}}">
-
-    <button>Actualizar</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Editar partida</h3>
+            </div>
+            <div class="contenido" id="contenido__form">
+                <div class="section__form">
+                    <form action="/partida/editar/{{partida.partida_id}}" method="POST">
+                        <p>Llene el siguiente formulario</p>
+                        <div class="form-group">
+                            <input class="section__form__input" type="number" min="0" name="no_partida" autocomplete="off" required value="{{partida.no_partida}}" readonly>
+                            <label for="no_partida" class="section__form__label">
+                                <span class="section__form__span">No. Partida</span>
+                            </label>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="descripcion" class="form-label">
+                                <span>Descripción</span>
+                            </label>
+                            <textarea class="form-control customize" name="descripcion" id="descripcion" rows="4" cols="50" placeholder="Escribe..." required maxlength="250">{{partida.descripcion}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-money" type="text" min="0" name="presupuesto_inicial" autocomplete="off" value="{{partida.presupuesto_inicial}}" required>
+                            <label for="presupuesto_inicial" class="section__form__label">
+                                <span class="section__form__span">Presupuesto Inicial</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button class="boton azul">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

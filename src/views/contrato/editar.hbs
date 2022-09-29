@@ -1,22 +1,75 @@
-<form action="/contrato/editar/{{contrato.contrato_id}}" method="POST">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Editar Contrato</h3>
+            </div>
+            <div class="contenido" id="contenido__form">
+                <div class="section__form">
+                    <form action="/contrato/editar/{{contrato.contrato_id}}" method="POST">
+                        <p>Para generar un nuevo contrato, llene el siguiente formulario</p>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="tipo_id" class="form-label">
+                                <span class="section__form__span">Tipo de Contrato</span>
+                            </label>
+                            <select id="tipo_id" name="tipo_id" class="form-select">
+                                <option value="0">Seleccione</option>
+                                {{#each lista_tipos }}
+                                    <option value="{{ tipo_id }}" {{#if (tipo_contrato_id) }} selected="selected" {{/if}}>{{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="partida_id" class="form-label">
+                                <span class="section__form__span">Partida</span>
+                            </label>
+                            <select id="partida_id" name="partida_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_partidas }}
+                                    <option value="{{ partida_id }} ">{{no_partida}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="proveedor_id" class="form-label">
+                                <span class="section__form__span">Proveedor</span>
+                            </label>
+                            <select id="proveedor_id" name="proveedor_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_proveedores }}
+                                    <option value="{{ proveedor_id }} ">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-money" type="text" min="0" name="suma_total" autocomplete="off" value="{{contrato.suma_total}}" required>
+                            <label for="suma_total" class="section__form__label">
+                                <span class="section__form__span">Suma Total</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-date" type="text" name="vigencia" autocomplete="off" value="{{contrato.vigencia}}" required placeholder="DD-MM-AAAA">
+                            <label for="vigencia" class="section__form__label">
+                                <span class="section__form__span">Vigencia</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button class="boton azul">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.addEventListener("load", function(event) {
+        var tipo_id = {{contrato.tipo_id}};
+        var partida_id = {{contrato.partida_id}};
+        var proveedor_id = {{contrato.proveedor_id}};
 
-    <label for="no_contrato">Numero de Contrato</label>
-    <input class="" type="text" name="no_contrato" value="{{contrato.no_contrato}}">
-
-    <label for="suma_total">Suma Total</label>
-    <input class="" type="text" name="suma_total" value="{{contrato.suma_total}}">
-
-    <label for="vigencia">Vigencia</label>
-    <input class="" type="text" name="vigencia"value="{{contrato.vigencia}}">
-
-    <label for="tipo_id">Tipo de Contrato </label>
-    <input class="" type="text" name="tipo_id" value="{{contrato.tipo_id}}">
-
-    <label for="proveedor_id">Proveedor</label>
-    <input class="" type="text" name="proveedor_id" value="{{contrato.proveedor_id}}">
-
-    <label for="partida_id">Numero de partida</label>
-    <input class="" type="text" name="partida_id" value="{{contrato.partida_id}}">
-
-    <button>Actualizar</button>
-</form>
+        document.getElementById('tipo_id').options[tipo_id].selected = true;
+        document.getElementById('partida_id').options[partida_id].selected = true;
+        document.getElementById('proveedor_id').options[proveedor_id].selected = true;
+    });
+</script>

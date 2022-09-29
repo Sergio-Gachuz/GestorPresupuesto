@@ -10,7 +10,7 @@
                     <a class="boton azul" href="/partida/nuevo">Nueva Partida</a>
                 </div>
                 <hr>
-                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                <table class="display" cellspacing="0" id="table" width="100%">
                     <thead>
                         <th>Numero de Partida</th>
                         <th>Descripcion</th>
@@ -28,8 +28,8 @@
                                 <td data-label="egresos">{{egresos}}</td>
                                 <td data-label=" presupuesto_actual">{{ presupuesto_actual}}</td>
                                 <td>
-                                    <a class="btn btn-warning" href="/partida/editar/{{partida_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger" href="/partida/borrar/{{partida_id}}"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-warning" style="margin: 0.3rem;" href="/partida/editar/{{partida_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" style="margin: 0.3rem;" href="/partida/borrar/{{partida_id}}"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}

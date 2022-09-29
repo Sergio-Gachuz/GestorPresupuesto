@@ -180,6 +180,18 @@ h1, h2, h3{
     font-family: var(--Alegreya);
 }
 
+textarea.customize,
+textarea.customize:focus{
+    resize: none;
+    outline: none;
+    border: transparent 2px solid;
+    border-bottom: var(--color-four) 2px solid;
+    box-shadow: none;
+    caret-color: var(--color-five);
+    background: transparent;
+    font-size: 1.3rem;
+}
+
 .form-group{
     display: flex;
     justify-content: center;
@@ -190,6 +202,30 @@ div.acciones{
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+}
+
+div.caja__texto{
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 80%;
+}
+
+div.caja__texto label{
+    font-size: 1.3rem;
+    color: var(--color-five);
+}
+
+.section__form .section__form__input:read-only{
+    background: #31323510;
+}
+
+.input-date::placeholder {
+    color: transparent;
+  }
+
+.input-date:focus::placeholder {
+    color: rgba(0, 0, 0, 0.112);
 }
 
 table thead{
@@ -378,7 +414,8 @@ div .buttons-pdf:hover,
     }
     
     .section__form .section__form__input:focus + .section__form__label .section__form__span,
-    .section__form .section__form__input:valid + .section__form__label .section__form__span{
+    .section__form .section__form__input:valid + .section__form__label .section__form__span,
+    .section__form .section__form__input:read-only + .section__form__label .section__form__span{
         color: var(--color-five);
         font-size: 12px;
         font-weight: 400;

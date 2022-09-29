@@ -16,4 +16,12 @@ helpers.matchPassword = async(contrasena, savedContrasena) =>{
     }
 }
 
+helpers.currency = (number => {
+    return new Intl.NumberFormat( 'es-MX', {
+        style:'currency', 
+        currency: 'MXN', 
+        minimumFractionDigits: 2
+    }).format(number);
+})
+
 module.exports = helpers

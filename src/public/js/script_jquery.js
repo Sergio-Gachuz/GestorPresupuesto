@@ -17,5 +17,17 @@ $(document).ready( function () {
         buttons: [
             'pdf'
         ]
-    });
-} );
+    });    
+});
+
+$('input[name="rfc"]').keypress(function() { 
+    if (this.value.length >= 13 ) { 
+        return false; 
+    }
+});
+
+$('input[name="codigo_postal"]').keypress(function() { 
+    if (this.value.length >= 5 ) { 
+        return false; 
+    }
+});

@@ -64,7 +64,7 @@ $(document).ready(function () {
         contrato.classList.add('selected');
         solicitud.classList.remove('selected');
      }
-     if(window.location.href.indexOf("solicitud") > -1) {
+    if(window.location.href.indexOf("solicitud") > -1) {
         miperfil.classList.remove('selected');
         partida.classList.remove('selected');
         proveedor.classList.remove('selected');
@@ -72,3 +72,26 @@ $(document).ready(function () {
         solicitud.classList.add('selected');
      }
 });
+
+window.onload = function () {
+    var datesCollection = document.getElementsByClassName("input-date");
+    var dates = Array.from(datesCollection);
+
+    dates.forEach(function (date) {
+        new Cleave(date, {
+            date: true,
+            delimiter: '-',
+            datePattern: ['d', 'm', 'Y']
+        })
+    });
+
+    var moneyCollection = document.getElementsByClassName("input-money");
+    var money = Array.from(moneyCollection);
+
+    money.forEach(function (money) {
+        new Cleave(money, {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        })
+    });
+};

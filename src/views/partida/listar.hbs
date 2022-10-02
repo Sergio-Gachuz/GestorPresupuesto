@@ -29,7 +29,7 @@
                                 <td data-label=" presupuesto_actual">{{ presupuesto_actual}}</td>
                                 <td>
                                     <a class="btn btn-warning" style="margin: 0.3rem;" href="/partida/editar/{{partida_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger" style="margin: 0.3rem;" href="/partida/borrar/{{partida_id}}"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-danger" style="margin: 0.3rem;" onclick="eliminarRegistro('partida/borrar/', {{partida_id}})"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}

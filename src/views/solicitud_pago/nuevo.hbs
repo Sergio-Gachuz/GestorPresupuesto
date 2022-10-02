@@ -1,22 +1,69 @@
-<form action="/solicitud_pago/nuevo" method="POST">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Generar solicitud de pago</h3>
+            </div>
+            <div class="contenido" id="contenido__form">
+                <div class="section__form">
+                    <form id="form" action="/solicitud_pago/nuevo" method="POST">
+                        <p>Llene el siguiente formulario</p>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="proveedor_id" class="form-label">
+                                <span class="section__form__span">Proveedor</span>
+                            </label>
+                            <select id="proveedor_id" name="proveedor_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_proveedores }}
+                                    <option value="{{proveedor_id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="partida_id" class="form-label">
+                                <span class="section__form__span">Partida</span>
+                            </label>
+                            <select id="partida_id" name="partida_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_partidas }}
+                                    <option value="{{partida_id}}">{{no_partida}} - {{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-money" type="text" min="0" name="importe" autocomplete="off" required>
+                            <label for="importe" class="section__form__label">
+                                <span class="section__form__span">Importe</span>
+                            </label>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="concepto" class="form-label">
+                                <span>Concepto</span>
+                            </label>
+                            <textarea class="form-control customize" name="concepto" id="descripcion" rows="4" cols="50" placeholder="Escribe..." required maxlength="250" autocomplete="off"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="guardarRegistro(event, document.querySelector('#form'), '¿Está seguro de guardar esta solicitud de pago?', 'El importe no podrá modificarse.')" class="boton azul">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <label for="no_folio">Numero de Folio</label>
-    <input class="" type="text" name="no_folio">
-
-    <label for="fecha">Fecha</label>
-    <input class="" type="date" name="fecha" required>
-
-    <label for="importe">Importe</label>
-    <input class="" type="text" name="importe">
-
-    <label for="concepto">Concepto</label>
-    <input class="" type="text" name="concepto">
-
-    <label for="partida_id">Partida</label>
-    <input class="" type="text" name="partida_id">
-
-    <label for="proveedor_id">Proveedor</label>
-    <input class="" type="text" name="proveedor_id">
-
-    <button>Guardar</button>
-</form>
+<script type="text/javascript">
+    document.querySelector('#proveedor_id').addEventListener("change", () => {
+        var proveedor = document.querySelector('#proveedor_id');
+        var proveedor_id = proveedor.options[proveedor.selectedIndex].value;
+        var url = 'partida_proveedor/' + proveedor_id;
+        fetch(url)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                console.log(data.partida_id)
+                document.getElementById('partida_id').options[data.partida_id].selected = true;
+            })
+    }); 
+</script>

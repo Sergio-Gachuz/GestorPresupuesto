@@ -2,48 +2,9 @@ Notas:
 1.- Solicitud de pago 
   - Falta vista de tablas
   - folio se genera con letras, 
-  - Se resta al presupuesto inicial cuando sea menor o igual a la suma total del contrato 
-
-2.- Codigo para no permitir la eliminación de entidades por llaves foraneas
+  - Resta al contrato y mostrar cuanto le sobra del contrato
 
 3.- Contrato 
   - Falta vista de tablas
 
 4.- Mi perfil tendra la opcion de descargar el manual
-
-const añadirContrato = async(req, res) => { 
-    var presupuesto_actual, totalEgresos;
-    const {no_contrato, suma_total, vigencia, tipo_id, proveedor_id, partida_id} = req.body
-    const nuevoContrato = {
-        no_contrato,
-        suma_total,
-        vigencia,
-        tipo_id,
-        proveedor_id,
-        partida_id
-    };
-
-    const partida = await database.query('select presupuesto_inicial, egresos, presupuesto_actual from partida where partida_id = ?', [partida_id]);
-
-    var costo_contrato = suma_total.replace(/,/g, "");
-    costo_contrato = Number(costo_contrato);
-    nuevoContrato.suma_total = costo_contrato;
-
-    if (partida[0].presupuesto_inicial > costo_contrato) {
-        totalEgresos = partida[0].egresos + costo_contrato;
-        //! REVISAR
-        if (partida[0].presupuesto_actual <= 0) {
-            req.flash('message', 'Ya no hay fondos en esta partida');
-            res.redirect('/contrato');
-        }else{
-            presupuesto_actual = partida[0].presupuesto_inicial - totalEgresos;
-            await database.query('insert into contrato set ?', [nuevoContrato]);
-            await database.query('update partida set egresos = ?, presupuesto_actual = ? where partida_id = ?', [totalEgresos, presupuesto_actual, partida_id]);
-            req.flash('success', 'Contrato guardado correctamente');
-            res.redirect('/contrato');
-        }
-    }else{
-        req.flash('message', 'Suma total de contrato excede al presupuesto inicial');
-        res.redirect('/contrato');
-    }
-}

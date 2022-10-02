@@ -98,7 +98,7 @@ header h3{
 .options__menu{
     padding: 20px 33px;
     position: absolute;
-    top: 80px;
+    top: 20%;
 }
 
 .options__menu a{
@@ -277,6 +277,9 @@ div .buttons-pdf:hover,
     transition: 0.5s;
 }
 
+.swal2-title{
+    font-family: var(--Lato);
+}
 
 @media screen and (min-width: 761px) {
     /* LogIn y SignIn */

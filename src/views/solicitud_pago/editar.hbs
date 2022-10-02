@@ -1,19 +1,78 @@
-<form action="/solicitud_pago/editar/{{solicitud_pago.no_folio}}" method="POST">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Actualizar solicitud de pago</h3>
+            </div>
+            <div class="contenido" id="contenido__form">
+                <div class="section__form">
+                    <form id="form" action="/solicitud_pago/editar/{{solicitud_pago.solicitud_id}}" method="POST">
+                        <p>Llene el siguiente formulario</p>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="proveedor_id" class="form-label">
+                                <span class="section__form__span">Proveedor</span>
+                            </label>
+                            <select id="proveedor_id" name="proveedor_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_proveedores }}
+                                    <option value="{{proveedor_id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="partida_id" class="form-label">
+                                <span class="section__form__span">Partida</span>
+                            </label>
+                            <select id="partida_id" name="partida_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_partidas }}
+                                    <option value="{{partida_id}}">{{no_partida}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-money" type="text" min="0" name="importe" autocomplete="off" required readonly value="{{solicitud_pago.importe}}">
+                            <label for="importe" class="section__form__label">
+                                <span class="section__form__span">Importe</span>
+                            </label>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="concepto" class="form-label">
+                                <span>Descripción</span>
+                            </label>
+                            <textarea class="form-control customize" name="concepto" id="descripcion" rows="4" cols="50" placeholder="Escribe..." required maxlength="250" autocomplete="off">{{solicitud_pago.concepto}}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="guardarRegistro(event, document.querySelector('#form'), '¿Está seguro de actualizar esta solicitud de pago?')" class="boton azul">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <label for="fecha">Fecha</label>
-    <input class="" type="date" name="fecha" value="{{solicitud_pago.fecha}}">
+<script type="text/javascript">
+    window.addEventListener("load", function(event) {
+        //var contrato_id = {{solicitud_pago.tipo_id}};
+        var partida_id = {{solicitud_pago.partida_id}};
+        var proveedor_id = {{solicitud_pago.proveedor_id}};
 
-    <label for="importe">Importe</label>
-    <input class="" type="text" name="importe"value="{{solicitud_pago.importe}}">
+        //document.getElementById('tipo_id').options[tipo_id].selected = true;
+        document.getElementById('partida_id').options[partida_id].selected = true;
+        document.getElementById('proveedor_id').options[proveedor_id].selected = true;
+    });
 
-    <label for="concepto">Concepto</label>
-    <input class="" type="text" name="concepto" value="{{solicitud_pago.concepto}}">
-
-    <label for="partida_id">Partida</label>
-    <input class="" type="text" name="partida_id" value="{{solicitud_pago.partida_id}}">
-
-    <label for="proveedor_id">Proveedor</label>
-    <input class="" type="text" name="proveedor_id" value="{{solicitud_pago.proveedor_id}}">
-
-    <button>Actualizar</button>
-</form>
+    document.querySelector('#proveedor_id').addEventListener("change", () => {
+        var proveedor = document.querySelector('#proveedor_id');
+        var proveedor_id = proveedor.options[proveedor.selectedIndex].value;
+        var url = 'partida_proveedor/' + proveedor_id;
+        fetch(url)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                document.getElementById('partida_id').options[data.partida_id].selected = true;
+            })
+    });
+</script>

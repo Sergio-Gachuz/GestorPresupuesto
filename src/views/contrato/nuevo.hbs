@@ -6,7 +6,7 @@
             </div>
             <div class="contenido" id="contenido__form">
                 <div class="section__form">
-                    <form action="/contrato/nuevo" method="POST">
+                    <form id="form" action="/contrato/nuevo" method="POST">
                         <p>Llene el siguiente formulario</p>
                         <div class="form-group caja__texto" style="display: block;">
                             <label for="tipo_id" class="form-label">
@@ -42,19 +42,19 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input class="section__form__input input-money" type="text" min="0" name="suma_total" autocomplete="off" required>
+                            <input class="section__form__input input-money" type="text" min="0" id="suma_total" name="suma_total" autocomplete="off" required>
                             <label for="suma_total" class="section__form__label">
                                 <span class="section__form__span">Suma Total</span>
                             </label>
                         </div>
                         <div class="form-group">
-                            <input class="section__form__input input-date" type="text" name="vigencia" autocomplete="off" required placeholder="DD-MM-AAAA">
+                            <input class="section__form__input input-date" type="text" id="vigencia" name="vigencia" autocomplete="off" required placeholder="DD-MM-AAAA">
                             <label for="vigencia" class="section__form__label">
                                 <span class="section__form__span">Vigencia</span>
                             </label>
                         </div>
                         <div class="form-group">
-                            <button class="boton azul">Guardar</button>
+                            <button onclick="guardarContrato(event, document.querySelector('#form'), '¿Está seguro de guardar este contrato?', 'La suma total no podrá modificarse.')" class="boton azul">Guardar</button>
                         </div>
                     </form>
                 </div>

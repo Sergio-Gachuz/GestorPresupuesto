@@ -126,36 +126,22 @@ const obtenerSolicitud_pago = async(req, res)=>{
 
 const editarSolicitud_pago = async(req, res) => {
     const { solicitud_id } = req.params;
-    const { proveedor_id, partida_id, importe, concepto } = req.body
+    const { proveedor_id, partida_id, concepto } = req.body
 
     await database.query('select * from contrato where partida_id = ? and proveedor_id = ?', [partida_id, proveedor_id], async(err, result, field) => {
         if(result.length > 0){
-
             const contrato = await database.query('select contrato_id, suma_total from contrato where partida_id = ? and proveedor_id = ?', [partida_id, proveedor_id])
-            const partida = await database.query('select * from partida where partida_id = ?', [partida_id])
 
-            var importeInt = importe.replace(/,/g, "");
-            importeInt = Number(importeInt);
+            const actualizarSolicitud = {
+                concepto,
+                partida_id,
+                proveedor_id,
+                contrato_id: contrato[0].contrato_id
+            };
 
-            if (contrato[0].suma_total >= importeInt && partida[0].presupuesto_inicial >= importeInt && partida[0].presupuesto_actual >= importeInt && partida[0].presupuesto_actual > 0) {
-                
-                const actualizarSolicitud = {
-                    importe: importeInt,
-                    concepto,
-                    partida_id,
-                    proveedor_id,
-                    contrato_id: contrato[0].contrato_id
-                };
-
-                await database.query('update solicitud_pago set ? where solicitud_id = ?', [actualizarSolicitud, solicitud_id]);
-                req.flash('success', 'Solicitud de pago actualizada correctamente.');
-                res.redirect('/solicitud_pago');
-            
-            } else {
-                req.flash('message', 'El importe a pagar excede el presupuesto.');
-                res.redirect('/solicitud_pago');
-            }
-
+            await database.query('update solicitud_pago set ? where solicitud_id = ?', [actualizarSolicitud, solicitud_id]);
+            req.flash('success', 'Solicitud de pago actualizada correctamente.');
+            res.redirect('/solicitud_pago');
         }else{  
             req.flash('message', 'Este proveedor no tiene un contrato registrado.');
             res.redirect('/solicitud_pago');

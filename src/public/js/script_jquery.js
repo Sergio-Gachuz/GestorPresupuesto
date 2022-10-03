@@ -50,21 +50,68 @@ function eliminarRegistro(route, id) {
         }
     })
 }
-async function guardarRegistro(event, form, titulo, texto = null) {
+
+function guardarContrato(event, form, titulo, texto = null) {
     event.preventDefault();
-    Swal.fire({
-        title: titulo,
-        text: texto,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            form.submit();
-        }
-    })
+
+    var proveedor_id = $('#proveedor_id').val();
+    var partida_id = $('#partida_id').val();
+    var tipo_id = $('#tipo_id').val();
+    var suma_total = $('#suma_total').val();
+    var vigencia = $('#vigencia').val();
+
+    if (proveedor_id == 0 || proveedor_id == '' || partida_id == 0 || partida_id == '' || tipo_id == 0 || tipo_id == '' || suma_total == '' || vigencia == '') {
+        Swal.fire(
+            'Formulario incompleto',
+            'Necesita llenar todos los campos',
+            'warning'
+        );
+    }else{
+        Swal.fire({
+            title: titulo,
+            text: texto,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+    }
+}
+
+function guardarSolicitud(event, form, titulo, texto = null) {
+    event.preventDefault();
+
+    var proveedor_id = $('#proveedor_id').val();
+    var partida_id = $('#partida_id').val();
+    var importe = $('#importe').val();
+    var descripcion = $('#descripcion').val();
+
+    if (proveedor_id == 0 || proveedor_id == '' || partida_id == 0 || partida_id == '' || importe == '' || descripcion == '') {
+        Swal.fire(
+            'Formulario incompleto',
+            'Necesita llenar todos los campos',
+            'warning'
+        );
+    }else{
+        Swal.fire({
+            title: titulo,
+            text: texto,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+    }
 }
 
 function generarPDF(){

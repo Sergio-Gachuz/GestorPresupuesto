@@ -73,25 +73,17 @@ const obtenerContrato = async(req, res)=>{
 
 const editarContrato = async(req, res) => {
     const { contrato_id } = req.params;
-    const { suma_total, vigencia, tipo_id, proveedor_id, partida_id } = req.body;
-    const partida = await database.query('select presupuesto_inicial, presupuesto_actual from partida where partida_id = ?', [partida_id]);
-    var costo_contrato = suma_total.replace(/,/g, "");
-    costo_contrato = Number(costo_contrato);
-    if (partida[0].presupuesto_inicial > costo_contrato && partida[0].presupuesto_actual != 0) {
-        const actualizarContrato = {
-            tipo_id,
-            partida_id,
-            proveedor_id,
-            suma_total: costo_contrato,
-            vigencia,
-        };
-        await database.query('update contrato set ? where contrato_id = ?', [actualizarContrato, contrato_id]);
-        req.flash('success', 'Contrato actualizado correctamente.');
-        res.redirect('/contrato');
-    } else {
-        req.flash('message', 'Contrato excede el presupuesto.');
-        res.redirect('/contrato');
-    }
+    const { vigencia, tipo_id, proveedor_id, partida_id } = req.body;
+    
+    const actualizarContrato = {
+        tipo_id,
+        partida_id,
+        proveedor_id,
+        vigencia,
+    };
+    await database.query('update contrato set ? where contrato_id = ?', [actualizarContrato, contrato_id]);
+    req.flash('success', 'Contrato actualizado correctamente.');
+    res.redirect('/contrato');
 }
 
 module.exports = {

@@ -58,12 +58,22 @@ const obtenerPartida = async(req, res)=>{
 const editarPartida = async(req, res) => {
     const { partida_id } = req.params;
     const {no_partida, descripcion, presupuesto_inicial} = req.body;
+
+    const partida = await database.query('select * from partida where partida_id = ?', [partida_id])
+
+    var presupuesto_inicial_formateado = presupuesto_inicial.replace(/,/g, "");
+
+    presupuesto_actual = presupuesto_inicial_formateado - partida[0].egresos;
+
     const actualizarPartida = {
         no_partida,
         descripcion,
-        presupuesto_inicial
+        presupuesto_inicial: presupuesto_inicial_formateado,
+        presupuesto_actual
     };
-    actualizarPartida.presupuesto_inicial = presupuesto_inicial.replace(/,/g, "");
+
+    console.log(actualizarPartida);
+
     await database.query('update partida set ? where partida_id = ?', [actualizarPartida, partida_id]);
     req.flash('success', 'Partida actualizado correctamente.');
     res.redirect('/partida');

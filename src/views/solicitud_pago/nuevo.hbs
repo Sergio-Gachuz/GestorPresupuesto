@@ -31,7 +31,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <input class="section__form__input input-money" type="text" min="0" name="importe" autocomplete="off" required>
+                            <input class="section__form__input input-money" id="importe" type="text" min="0" name="importe" autocomplete="off" required>
                             <label for="importe" class="section__form__label">
                                 <span class="section__form__span">Importe</span>
                             </label>
@@ -43,7 +43,7 @@
                             <textarea class="form-control customize" name="concepto" id="descripcion" rows="4" cols="50" placeholder="Escribe..." required maxlength="250" autocomplete="off"></textarea>
                         </div>
                         <div class="form-group">
-                            <button onclick="guardarRegistro(event, document.querySelector('#form'), '¿Está seguro de guardar esta solicitud de pago?', 'El importe no podrá modificarse.')" class="boton azul">Guardar</button>
+                            <button onclick="guardarSolicitud(event, document.querySelector('#form'), '¿Está seguro de guardar esta solicitud de pago?', 'El importe no podrá modificarse.')" class="boton azul">Guardar</button>
                         </div>
                     </form>
                 </div>

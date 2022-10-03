@@ -1,22 +1,64 @@
-<form action="/contrato/nuevo" method="POST">
-
-    <label for="no_contrato">Numero de Contrato</label>
-    <input class="" type="text" name="no_contrato">
-
-    <label for="suma_total">Suma Total</label>
-    <input class="" type="text" name="suma_total" required>
-
-    <label for="vigencia">Vigencia</label>
-    <input class="" type="date" name="vigencia">
-
-    <label for="tipo_id">Tipo de Contrato</label>
-    <input class="" type="text" name="tipo_id">
-
-    <label for="proveedor_id">Proveedor</label>
-    <input class="" type="text" name="proveedor_id">
-
-    <label for="partida_id">Numero de partida</label>
-    <input class="" type="text" name="partida_id">
-
-    <button>Guardar</button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Nuevo contrato</h3>
+            </div>
+            <div class="contenido" id="contenido__form">
+                <div class="section__form">
+                    <form id="form" action="/contrato/nuevo" method="POST">
+                        <p>Llene el siguiente formulario</p>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="tipo_id" class="form-label">
+                                <span class="section__form__span">Tipo de Contrato</span>
+                            </label>
+                            <select id="tipo_id" name="tipo_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_tipos }}
+                                    <option value="{{tipo_id}}">{{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="partida_id" class="form-label">
+                                <span class="section__form__span">Partida</span>
+                            </label>
+                            <select id="partida_id" name="partida_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_partidas }}
+                                    <option value="{{partida_id}}">{{no_partida}} - {{descripcion}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="proveedor_id" class="form-label">
+                                <span class="section__form__span">Proveedor</span>
+                            </label>
+                            <select id="proveedor_id" name="proveedor_id" class="form-select">
+                                <option value="">Seleccione</option>
+                                {{#each lista_proveedores }}
+                                    <option value="{{proveedor_id}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-money" type="text" min="0" id="suma_total" name="suma_total" autocomplete="off" required>
+                            <label for="suma_total" class="section__form__label">
+                                <span class="section__form__span">Suma Total</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="section__form__input input-date" type="text" id="vigencia" name="vigencia" autocomplete="off" required placeholder="DD-MM-AAAA">
+                            <label for="vigencia" class="section__form__label">
+                                <span class="section__form__span">Vigencia</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button onclick="guardarContrato(event, document.querySelector('#form'), '¿Está seguro de guardar este contrato?', 'La suma total no podrá modificarse.')" class="boton azul">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

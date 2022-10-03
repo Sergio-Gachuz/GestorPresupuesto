@@ -14,9 +14,9 @@
                 <hr>
                 <table class="display nowrap" cellspacing="0" id="table" width="100%">
                     <thead>
-                        <th>Nombre/Razón Social</th>
+                        <th>Nombre</th>
+                        <th>Razón Social</th>
                         <th>RFC</th>
-                        <th>Codigo Postal</th>
                         <th>Domicilio</th>
                         <th>Email</th>
                         <th></th>
@@ -25,8 +25,8 @@
                         {{#each lista_proveedores }}
                             <tr>
                                 <td data-label="Nombre">{{nombre}}</td>
+                                <td data-label="Nombre">{{razon_social}}</td>
                                 <td data-label="RFC">{{rfc}}</td>
-                                <td data-label="Codigo Postal">{{codigo_postal}}</td>
                                 <td data-label="Domicilio">{{domicilio}}</td>
                                 <td data-label="Email">{{email}}</td>
                                 <td>
@@ -36,7 +36,7 @@
                             </tr>
                         {{else}}
                             <tr>
-                                <td>No hay provedores registrados</td>
+                                <td>No hay proveedores registrados</td>
                             </tr>
                         {{/each}}
                     </tbody>

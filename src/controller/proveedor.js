@@ -17,7 +17,7 @@ const añadirProveedor = async(req, res) => {
     };
 
     await database.query('insert into proveedor set ?', [nuevoProveedor]);
-    req.flash('success', 'Proveedor guardado correctamente');
+    req.flash('success', 'Proveedor guardado correctamente.');
     res.redirect('/proveedor');
 }
 
@@ -31,9 +31,15 @@ const obtenerProveedores = async(req, res) => {
 
 const eliminarProveedor = async(req, res)=>{
     const { proveedor_id } = req.params
-    await database.query('delete from proveedor where proveedor_id = ?', [proveedor_id]);
-    req.flash('success', 'Proveedor eliminado correctamente');
-    res.redirect('/proveedor');
+    await database.query('delete from proveedor where proveedor_id = ?', [proveedor_id], (err, result) => {
+        if (err) {
+            req.flash('message', 'No se puede eliminar este proveedor porque sus datos estan en uso.');
+            res.redirect('/proveedor');
+        } else {
+            req.flash('success', 'Proveedor eliminado correctamente.');
+            res.redirect('/proveedor');
+        }
+    });
 }
 
 const obtenerProveedor = async(req, res)=>{
@@ -46,16 +52,17 @@ const obtenerProveedor = async(req, res)=>{
 
 const editarProveedor = async(req, res) => {
     const { proveedor_id } = req.params;
-    const {nombre, razon_social, domicilio, codigo_postal, email} = req.body;
+    const {nombre, razon_social, rfc, domicilio, codigo_postal, email} = req.body;
     const actualizarProveedor = {
         nombre,
         razon_social,
+        rfc,
         domicilio,
         codigo_postal,
         email
     };
     await database.query('update proveedor set ? where proveedor_id = ?', [actualizarProveedor, proveedor_id]);
-    req.flash('success', 'Proveedor actualizado correctamente');
+    req.flash('success', 'Proveedor actualizado correctamente.');
     res.redirect('/proveedor');
 }
 

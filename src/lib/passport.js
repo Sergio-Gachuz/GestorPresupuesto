@@ -1,3 +1,4 @@
+require('dotenv').config()
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const database = require('../database');
@@ -23,25 +24,26 @@ passport.use('local.signup', new LocalStrategy({
     passwordField: 'contrasena',
     passReqToCallback: true
 }, async(req, username, passoword, done) => {
-
     const { nombre_completo, cod__ver } = req.body;
-if (cod__ver == "abc") {
-    const nuevoUsuario = {
-        usuario: username,
-        nombre_completo,
-        contrasena: passoword,
+    if (cod__ver == process.env.codver) {
+        await database.query('select usuario from usuario where usuario = ?', [username], async function(err, result, field){
+            if(result.length === 0){
+                const nuevoUsuario = {
+                    usuario: username,
+                    nombre_completo,
+                    contrasena: passoword,
+                }
+                nuevoUsuario.contrasena =  await helpers.encryptPassword(passoword);
+                const result = await database.query('insert into usuario set ?', [nuevoUsuario]);
+                nuevoUsuario.usuario_id = result.insertId;
+                return done(null, nuevoUsuario);
+            }else{  
+                return done(null, false, req.flash('message','Este usuario ya existe'));
+            }
+        });
+    } else{
+        return done(null, false, req.flash('message','Código de verificación no valido'));
     }
-
-    nuevoUsuario.contrasena =  await helpers.encryptPassword(passoword);
-
-    const result = await database.query('insert into usuario set ?', [nuevoUsuario]);
-
-    nuevoUsuario.usuario_id = result.insertId;
-
-    return done(null, nuevoUsuario);
-} else{
-    return done(null, false, req.flash('message','Codigo de verificacion no valido'));
-}
 }));
 
 passport.serializeUser((user, done) => {

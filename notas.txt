@@ -1,0 +1,10 @@
+Notas:
+1.- Solicitud de pago 
+  - Falta vista de tablas
+  - folio se genera con letras, 
+  - Resta al contrato y mostrar cuanto le sobra del contrato
+
+3.- Contrato 
+  - Falta vista de tablas
+
+4.- Mi perfil tendra la opcion de descargar el manual

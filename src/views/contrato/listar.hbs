@@ -1,19 +1,45 @@
-<div class="section">
-    <div class="card">
-        <h2 class="card-title">Contratos</h2>
-        <a href="/contrato/nuevo">Agregar nuevo</a>
-        <ul>
-            {{#each lista_contratos }}
-                <li>
-                    {{ no_contrato }} - {{ vigencia }}
-                    <br>
-                    <a href="/contrato/editar/{{contrato_id}}">Editar</a>
-                    <a href="/contrato/borrar/{{contrato_id}}">Borrar</a>
-                </li>
-            {{else}}
-                <p>No hay contratos guardados</p>
-                <a href="/contrato/nuevo">Agregar nuevo</a>
-            {{/each}}
-        </ul>    
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Contratos</h3>
+            </div>
+            <div class="contenido">
+                {{> alerta }}
+                <div class="acciones">
+                    <a class="boton azul" href="/contrato/nuevo">Nuevo Contrato</a>
+                </div>
+                <hr>
+                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                    <thead>
+                        <th>Numero de Contrato</th>
+                        <th>Suma Total</th>
+                        <th>Vigencia</th>
+                        <th>RFC</th>
+                        <th>Tipo de Contrato</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each lista_contratos }}
+                            <tr>
+                                <td data-label="no_contrato">{{no_contrato}}</td>
+                                <td data-label="suma_total">{{suma_total}}</td>
+                                <td data-label="vigencia">{{vigencia}}</td>
+                                <td data-label="rfc">{{rfc}}</td>
+                                <td data-label="descripcion">{{descripcion}}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="/contrato/editar/{{contrato_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" href="/contrato/borrar/{{contrato_id}}"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>No hay contratos registrados</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
 </div>

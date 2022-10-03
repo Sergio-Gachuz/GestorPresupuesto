@@ -1,19 +1,47 @@
-<div class="section">
-    <div class="card">
-        <h2 class="card-title">Solicitudes de Pagos</h2>
-        <a href="/solicitud_pago/nuevo">Agregar nuevo</a>
-        <ul>
-            {{#each lista_solicitud_pago }}
-                <li>
-                    {{ fecha }} - {{ importe }}
-                    <br>
-                    <a href="/solicitud_pago/editar/{{no_folio}}">Editar</a>
-                    <a href="/solicitud_pago/borrar/{{no_folio}}">Borrar</a>
-                </li>
-            {{else}}
-                <p>No hay partidas guardadas</p>
-                <a href="/solicitud_pago/nuevo">Agregar nuevo</a>
-            {{/each}}
-        </ul>    
-    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Solicitudes de pagos</h3>
+            </div>
+            <div class="contenido">
+                {{> alerta }}
+                <div class="acciones">
+                    <a class="boton azul" href="/solicitud_pago/nuevo">Nueva Solicitud</a>
+                </div>
+                <hr>
+                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                    <thead>
+                        <th>Numero de Folio </th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                        <th>Concepto</th>
+                        <th>Partida</th>
+                        <th>Proveedor</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each lista_proveedores }}
+                            <tr>
+                                <td data-label="no_folio">{{no_folio}}</td>
+                                <td data-label="fecha">{{fecha}}</td>
+                                <td data-label="importe">{{importe}}</td>
+                                <td data-label="concepto">{{concepto}}</td>
+                                <td data-label="partida_id">{{partida_id}}</td>
+                                 <td data-label="proveedor_id">{{proveedor_id}}</td>
+                                <td>
+                                    <a class="btn btn-warning" href="/solicitud_pago/editar/{{solicitud_pago}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" href="/solicitud_pago/borrar/{{solicitud_pago}}"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>No hay solicitudes de pagos registrados</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
 </div>

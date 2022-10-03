@@ -22,7 +22,7 @@ const añadirContrato = async(req, res) => {
 }
 
 const obtenerContratos = async(req, res) => {
-    const lista_contratos = await database.query('select * from contrato')
+    const lista_contratos = await database.query('select contrato_id, no_contrato, suma_total, vigencia, rfc, tipo_contrato.descripcion from contrato inner join proveedor on contrato.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = contrato.partida_id inner join tipo_contrato on contrato.tipo_id = tipo_contrato.tipo_id;')
     res.render('contrato/listar', {layout: 'main',lista_contratos});
 }
 

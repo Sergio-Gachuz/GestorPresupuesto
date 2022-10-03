@@ -36,7 +36,7 @@ const añadirContrato = async(req, res) => {
 }
 
 const obtenerContratos = async(req, res) => {
-    const lista_contratos = await database.query('select contrato_id, no_contrato, suma_total, vigencia, rfc, tipo_contrato.descripcion from contrato inner join proveedor on contrato.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = contrato.partida_id inner join tipo_contrato on contrato.tipo_id = tipo_contrato.tipo_id;')
+    const lista_contratos = await database.query('select contrato_id, suma_total, vigencia, nombre, tipo_contrato.descripcion from contrato inner join proveedor on contrato.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = contrato.partida_id inner join tipo_contrato on contrato.tipo_id = tipo_contrato.tipo_id;')
     lista_contratos.forEach(element => {
         element.suma_total = helpers.currency(element.suma_total);
     });

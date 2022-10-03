@@ -21,17 +21,17 @@
                         <th></th>
                     </thead>
                     <tbody>
-                        {{#each lista_proveedores }}
+                        {{#each lista_solicitud_pago }}
                             <tr>
-                                <td data-label="no_folio">{{no_folio}}</td>
-                                <td data-label="fecha">{{fecha}}</td>
+                                <td data-label="solicitud_id">COM.SOC.{{solicitud_id}} 2022 </td>
+                                <td data-label="fecha">{{created_at}}</td>
                                 <td data-label="importe">{{importe}}</td>
                                 <td data-label="concepto">{{concepto}}</td>
                                 <td data-label="partida_id">{{partida_id}}</td>
                                  <td data-label="proveedor_id">{{proveedor_id}}</td>
                                 <td>
-                                    <a class="btn btn-warning" href="/solicitud_pago/editar/{{solicitud_pago}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger" href="/solicitud_pago/borrar/{{solicitud_pago}}"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-warning" href="/solicitud_pago/editar/{{solicitud_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <a class="btn btn-danger" href="/solicitud_pago/borrar/{{solicitud_id}}"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}

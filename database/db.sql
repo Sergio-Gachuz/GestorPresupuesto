@@ -12,13 +12,12 @@ create table usuario (
 
 create table proveedor(
     proveedor_id int auto_increment primary key not null,
-    rfc varchar(16) not null,
+    rfc varchar(16),
     nombre varchar(100),
     razon_social varchar(100),
-    codigo_postal varchar(5),
+    codigo_postal int,
     domicilio varchar(150),
-    email varchar(50),
-    unique(rfc)
+    email varchar(50)
 );
 
 create table tipo_contrato(
@@ -28,40 +27,41 @@ create table tipo_contrato(
 
 create table partida(
     partida_id int auto_increment primary key not null,
-    no_partida varchar(10) not null,
-    descripcion varchar(100) not null,
+    no_partida varchar(10),
+    descripcion varchar(250),
     presupuesto_inicial decimal(20,2),
     egresos decimal(20,2),
     presupuesto_actual decimal(20,2),
     unique(no_partida)
-)
+);
 
 create table contrato(
-    contrato_id int primary key not null,
-    no_contrato varchar(10) not null,
-    suma_total decimal(20,2) not null,
-    vigencia date not null,
-    tipo_id int not null,
-    proveedor_id int not null,
-    partida_id int not null,
-    created_at timestamp not null default current_timestamp,
-    updated_at timestamp not null default current_timestamp,
+    contrato_id int auto_increment primary key not null,
+    suma_total decimal(20,2),
+    restante decimal(20,2),
+    vigencia varchar(10),
+    tipo_id int,
+    proveedor_id int,
+    partida_id int,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     constraint contratoFK1 foreign key (tipo_id) references tipo_contrato(tipo_id),
     constraint contratoFK2 foreign key (proveedor_id) references proveedor(proveedor_id),
     constraint contratoFK3 foreign key (partida_id) references partida(partida_id)
-)
+);
 
 create table solicitud_pago(
-    no_folio int auto_increment primary key not null,
-    fecha date not null,
-    importe decimal(20,2) not null,
-    concepto varchar(250) not null,
-    partida_id int not null,
-    proveedor_id int not null,
-    created_at timestamp,
-    updated_at timestamp,
+    solicitud_id int auto_increment primary key not null,
+    importe decimal(20,2),
+    concepto varchar(250),
+    partida_id int,
+    proveedor_id int,
+    contrato_id int,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp,
     constraint SolicitudFK1 foreign key (partida_id) references partida(partida_id),
-    constraint SolicitudFK2 foreign key (proveedor_id) references proveedor(proveedor_id)
-)
+    constraint SolicitudFK2 foreign key (proveedor_id) references proveedor(proveedor_id),
+    constraint SolicitudFK3 foreign key (contrato_id) references contrato(contrato_id)
+);
 
 insert into tipo_contrato (descripcion) values ("Indeterminado"),("Temporal");

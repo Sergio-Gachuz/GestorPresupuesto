@@ -1,5 +1,6 @@
 const database = require('../database');
 const layout = {layout: 'main'};
+const helpers = require('../lib/helpers');
 
 const obtenerVistaNuevoSolicitud_pago = async(req, res) => {
     const lista_proveedores = await database.query('select * from proveedor');
@@ -93,7 +94,10 @@ const añadirSolicitud_pago = async(req, res) => {
 }
 
 const obtenerSolicitud_pagos = async(req, res) => {
-    const lista_solicitud_pago = await database.query('select * from solicitud_pago')
+    const lista_solicitud_pago = await database.query('select solicitud_id, date(created_at) as fecha, importe, concepto, no_partida, nombre from solicitud_pago inner join proveedor on solicitud_pago.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = solicitud_pago.partida_id')
+    lista_solicitud_pago.forEach(element => {
+        element.importe = helpers.currency(element.importe);
+    });
     res.render('solicitud_pago/listar', {layout: 'main',lista_solicitud_pago});
 }
 

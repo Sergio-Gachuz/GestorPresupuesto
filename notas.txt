@@ -1,8 +1,6 @@
 Notas:
 1.- Solicitud de pago 
-  - Falta no. partida y el nombre de proveedor en tabla (controlador de solicitud de pago)
-  - Falta agregar mensaje (proveedor, contrato, solicitud de pago)
-  - folio se genera con letras, obtener año
+  - Obtener año para folio 
   - Resta al contrato y mostrar cuanto le sobra del contrato
 
 4.- Mi perfil tendra la opcion de descargar el manual

@@ -31,7 +31,7 @@
                                 <td data-label="Email">{{email}}</td>
                                 <td>
                                     <a class="btn btn-warning" href="/proveedor/editar/{{proveedor_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger" href="/proveedor/borrar/{{proveedor_id}}"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-danger" onclick="eliminarRegistro('proveedor_id/borrar/', {{proveedor_id}})"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}

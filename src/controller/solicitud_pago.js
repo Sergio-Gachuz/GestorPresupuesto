@@ -94,9 +94,13 @@ const añadirSolicitud_pago = async(req, res) => {
 }
 
 const obtenerSolicitud_pagos = async(req, res) => {
-    const lista_solicitud_pago = await database.query('select solicitud_id, date(created_at) as fecha, importe, concepto, no_partida, nombre from solicitud_pago inner join proveedor on solicitud_pago.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = solicitud_pago.partida_id')
+    const lista_solicitud_pago = await database.query('select solicitud_id, date(created_at) as fecha, year(created_at) as anio, importe, concepto, no_partida, nombre from solicitud_pago inner join proveedor on solicitud_pago.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = solicitud_pago.partida_id');
+    
+    const opciones = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
     lista_solicitud_pago.forEach(element => {
         element.importe = helpers.currency(element.importe);
+        element.fecha = element.fecha.toLocaleDateString('es-MX', opciones)
     });
     res.render('solicitud_pago/listar', {layout: 'main',lista_solicitud_pago});
 }

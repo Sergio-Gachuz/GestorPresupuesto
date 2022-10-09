@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { isLoggedIn } = require('../lib/auth');
-const { obtenerVistaNuevoSolicitud_pago, obtenerPartidaProveedor, añadirSolicitud_pago, obtenerSolicitud_pagos, eliminarSolicitud_pago, obtenerSolicitud_pago, editarSolicitud_pago } = require('../controller/solicitud_pago');
+const { obtenerVistaNuevoSolicitud_pago, añadirSolicitud_pago, obtenerSolicitud_pagos, eliminarSolicitud_pago, obtenerSolicitud_pago, editarSolicitud_pago, obtenerContratosProveedor, obtenerRestanteContrato } = require('../controller/solicitud_pago');
 
 router.get('/nuevo', isLoggedIn, obtenerVistaNuevoSolicitud_pago );
 
-router.get('/partida_proveedor/:proveedor_id', obtenerPartidaProveedor)
+router.get('/contratos_proveedor/:proveedor_id/:partida_id', isLoggedIn, obtenerContratosProveedor);
+
+router.get('/saldo_contrato/:contrato_id', isLoggedIn, obtenerRestanteContrato);
 
 router.post('/nuevo', isLoggedIn, añadirSolicitud_pago);
 

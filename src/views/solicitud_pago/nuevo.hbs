@@ -8,12 +8,16 @@
                 <div class="section__form">
                     <form id="form" action="/solicitud_pago/nuevo" method="POST">
                         <p>Llene el siguiente formulario</p>
+                        <hr class="my-3">
+                        <div class="alert alert-info" role="alert" style="display: flex; width: 50%; margin: 0 auto;">
+                            <h2 style="margin-bottom: 0;">Saldo restante: $</h2><h3 id="saldo" style="margin-bottom: 0;"></h3>
+                        </div>
                         <div class="form-group caja__texto" style="display: block;">
                             <label for="proveedor_id" class="form-label">
                                 <span class="section__form__span">Proveedor</span>
                             </label>
-                            <select id="proveedor_id" name="proveedor_id" class="form-select">
-                                <option value="">Seleccione</option>
+                            <select id="proveedor_id" name="proveedor_id" class="form-select" required>
+                                <option value="0">Seleccione</option>
                                 {{#each lista_proveedores }}
                                     <option value="{{proveedor_id}}">{{nombre}}</option>
                                 {{/each}}
@@ -23,11 +27,19 @@
                             <label for="partida_id" class="form-label">
                                 <span class="section__form__span">Partida</span>
                             </label>
-                            <select id="partida_id" name="partida_id" class="form-select">
-                                <option value="">Seleccione</option>
+                            <select id="partida_id" name="partida_id" class="form-select" required>
+                                <option value="0">Seleccione</option>
                                 {{#each lista_partidas }}
                                     <option value="{{partida_id}}">{{no_partida}} - {{descripcion}}</option>
                                 {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group caja__texto" style="display: block;">
+                            <label for="contrato_id" class="form-label">
+                                <span class="section__form__span">Contratos</span>
+                            </label>
+                            <select id="contrato_id" name="contrato_id" class="form-select" required>
+                                <option value="0">Seleccione</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -54,16 +66,67 @@
 
 <script type="text/javascript">
     document.querySelector('#proveedor_id').addEventListener("change", () => {
+        document.getElementById('partida_id').options[0].selected = true;
+
+        $('#contrato_id')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="0">Seleccione</option>')
+            .val('0')
+        ;
+
+        $('#saldo').text(' ')
+    });
+
+    document.querySelector('#partida_id').addEventListener("change", async() => {
+        $('#contrato_id')
+            .find('option')
+            .remove()
+            .end()
+            .append('<option value="0">Seleccione</option>')
+            .val('0')
+        ;
+
+        $('#saldo').text(' ')
+
         var proveedor = document.querySelector('#proveedor_id');
         var proveedor_id = proveedor.options[proveedor.selectedIndex].value;
-        var url = 'partida_proveedor/' + proveedor_id;
+
+        var partida = document.querySelector('#partida_id');
+        var partida_id = partida.options[partida.selectedIndex].value;
+
+       var url = 'contratos_proveedor/' + proveedor_id + '/' + partida_id;
+
         fetch(url)
             .then((response) => {
                 return response.json()
             })
             .then((data) => {
-                console.log(data.partida_id)
-                document.getElementById('partida_id').options[data.partida_id].selected = true;
+                for(contrato of data){
+                    $('#contrato_id').append("<option value='"+ contrato.contrato_id +"'>" + contrato.tipo + " - " + contrato.vigencia + " - " + contrato.suma_total + "</option>");
+                }
             })
-    }); 
+    })
+
+    document.querySelector('#contrato_id').addEventListener("change", () => {
+        var contrato = document.querySelector('#contrato_id');
+        var contrato_id = contrato.options[contrato.selectedIndex].value;
+
+        var url = 'saldo_contrato/' + contrato_id;
+            
+        fetch(url)
+            .then((response) => {
+                return response.json()
+            })
+            .then((data) => {
+                saldo = data.restante;
+                new Intl.NumberFormat( 'es-MX', {
+                        style:'currency', 
+                        currency: 'MXN', 
+                        minimumFractionDigits: 2
+                    }).format(saldo);
+                    $('#saldo').text(' ' + saldo)
+                })
+    });    
 </script>

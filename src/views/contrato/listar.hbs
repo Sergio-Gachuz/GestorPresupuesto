@@ -14,6 +14,7 @@
                     <thead>
                         <th>Numero de Contrato</th>
                         <th>Suma Total</th>
+                        <th>Saldo Restante</th>
                         <th>Vigencia</th>
                         <th>Nombre</th>
                         <th>Tipo de Contrato</th>
@@ -24,12 +25,13 @@
                             <tr>
                                 <td data-label="contrato_id">{{contrato_id}}</td>
                                 <td data-label="suma_total">{{suma_total}}</td>
+                                <td data-label="restante">{{restante}}</td>
                                 <td data-label="vigencia">{{vigencia}}</td>
                                 <td data-label="nombre">{{nombre}}</td>
                                 <td data-label="descripcion">{{descripcion}}</td>
                                 <td>
                                     <a class="btn btn-warning" href="/contrato/editar/{{contrato_id}}"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger" onclick="eliminarRegistro('contrato/borrar/', {{partida_id}})"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-danger" onclick="eliminarRegistro('contrato/borrar/', {{contrato_id}})"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}

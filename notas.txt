@@ -1,6 +1,0 @@
-Notas:
-1.- Solicitud de pago 
-  - Obtener año para folio 
-  - Resta al contrato y mostrar cuanto le sobra del contrato
-
-4.- Mi perfil tendra la opcion de descargar el manual

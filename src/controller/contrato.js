@@ -60,28 +60,19 @@ const eliminarContrato = async(req, res)=>{
 
 const obtenerContrato = async(req, res)=>{
     const { contrato_id } = req.params;
-    const contrato = await database.query('select * from contrato where contrato_id = ?', [contrato_id]);
-    const lista_partidas = await database.query('select * from partida');
-    const lista_tipos = await database.query('select * from tipo_contrato');
-    const lista_proveedores = await database.query('select * from proveedor');
+    const contrato = await database.query('select contrato_id, tipo_contrato.descripcion as tipo, partida.no_partida as num_partida, proveedor.nombre as prov_nombre, suma_total, vigencia from contrato inner join tipo_contrato on contrato.tipo_id = tipo_contrato.tipo_id inner join partida on contrato.partida_id = partida.partida_id inner join proveedor on contrato.proveedor_id = proveedor.proveedor_id where contrato_id = ?', [contrato_id]);
     res.render('contrato/editar', {
         layout: 'main', 
-        contrato: contrato[0],
-        lista_tipos, 
-        lista_partidas,
-        lista_proveedores
+        contrato: contrato[0]
     })
 }
 
 const editarContrato = async(req, res) => {
     const { contrato_id } = req.params;
-    const { vigencia, tipo_id, proveedor_id, partida_id } = req.body;
+    const { vigencia } = req.body;
     
     const actualizarContrato = {
-        tipo_id,
-        partida_id,
-        proveedor_id,
-        vigencia,
+        vigencia
     };
     await database.query('update contrato set ? where contrato_id = ?', [actualizarContrato, contrato_id]);
     req.flash('success', 'Contrato actualizado correctamente.');

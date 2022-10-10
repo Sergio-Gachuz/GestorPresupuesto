@@ -5,7 +5,7 @@
     <div class="section__form">
         <form action="/signup" method="POST">  
         {{> alerta }} 
-        <p>Llene el siguiente formulario</p>
+        <p>Registrarse</p>
             <div class="form-group">
                 <input class="section__form__input" type="text" name="nombre_completo" autocomplete="off" required>
                 <label for="nombre_completo" class="section__form__label">
@@ -31,8 +31,9 @@
                 </label>
             </div>
             <div class="form-group">
-                <button class="boton azul">Registrarse</button>
+                <button class="boton azul">Crear cuenta</button>
             </div>
+            <p class="form__link"><a href="/signin">Regresar</a></p>
         </form>
     </div>
 </div>

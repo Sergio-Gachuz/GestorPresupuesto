@@ -135,40 +135,24 @@ const eliminarSolicitud_pago = async(req, res)=>{
 
 const obtenerSolicitud_pago = async(req, res)=>{
     const { solicitud_id } = req.params;
-    const solicitud_pago = await database.query('select * from solicitud_pago where solicitud_id = ?', [solicitud_id])
-    const lista_partidas = await database.query('select * from partida');
-    const lista_proveedores = await database.query('select * from proveedor');
+    const solicitud_pago = await database.query('select solicitud_id, partida.no_partida as num_partida, proveedor.nombre as prov_nombre, importe, concepto from solicitud_pago inner join partida on solicitud_pago.partida_id = partida.partida_id inner join proveedor on solicitud_pago.proveedor_id = proveedor.proveedor_id where solicitud_id = ?', [solicitud_id])
     res.render('solicitud_pago/editar', {
         layout: 'main', 
-        solicitud_pago: solicitud_pago[0],
-        lista_partidas,
-        lista_proveedores
+        solicitud_pago: solicitud_pago[0]
     })
 }
 
 const editarSolicitud_pago = async(req, res) => {
     const { solicitud_id } = req.params;
-    const { proveedor_id, partida_id, concepto } = req.body
+    const { concepto } = req.body
 
-    await database.query('select * from contrato where partida_id = ? and proveedor_id = ?', [partida_id, proveedor_id], async(err, result, field) => {
-        if(result.length > 0){
-            const contrato = await database.query('select contrato_id, suma_total from contrato where partida_id = ? and proveedor_id = ?', [partida_id, proveedor_id])
+    const actualizarSolicitud = {
+        concepto
+    };
 
-            const actualizarSolicitud = {
-                concepto,
-                partida_id,
-                proveedor_id,
-                contrato_id: contrato[0].contrato_id
-            };
-
-            await database.query('update solicitud_pago set ? where solicitud_id = ?', [actualizarSolicitud, solicitud_id]);
-            req.flash('success', 'Solicitud de pago actualizada correctamente.');
-            res.redirect('/solicitud_pago');
-        }else{  
-            req.flash('message', 'Este proveedor no tiene un contrato registrado.');
-            res.redirect('/solicitud_pago');
-        }
-    });
+    await database.query('update solicitud_pago set ? where solicitud_id = ?', [actualizarSolicitud, solicitud_id]);
+    req.flash('success', 'Solicitud de pago actualizada correctamente.');
+    res.redirect('/solicitud_pago');
 }
 
 module.exports = {

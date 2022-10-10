@@ -7,40 +7,25 @@
             <div class="contenido" id="contenido__form">
                 <div class="section__form">
                     <form id="form" action="/contrato/editar/{{contrato.contrato_id}}" method="POST">
-                        <p>Para generar un nuevo contrato, llene el siguiente formulario</p>
+                        <p>Llene el siguiente formulario</p>
                         <hr class="my-3">
-                        <div class="form-group caja__texto" style="display: block;">
-                            <label for="tipo_id" class="form-label">
+                        <div class="form-group">
+                            <input class="section__form__input" type="text" min="0" id="tipo_id" name="tipo_id" autocomplete="off" value="{{contrato.tipo}}" readonly>
+                            <label for="suma_total" class="section__form__label">
                                 <span class="section__form__span">Tipo de Contrato</span>
                             </label>
-                            <select id="tipo_id" name="tipo_id" class="form-select">
-                                <option value="0">Seleccione</option>
-                                {{#each lista_tipos }}
-                                    <option value="{{ tipo_id }}" {{#if (tipo_contrato_id) }} selected="selected" {{/if}}>{{descripcion}}</option>
-                                {{/each}}
-                            </select>
                         </div>
-                        <div class="form-group caja__texto" style="display: block;">
-                            <label for="partida_id" class="form-label">
-                                <span class="section__form__span">Partida</span>
+                        <div class="form-group">
+                            <input class="section__form__input" type="text" min="0" id="partida_id" name="partida_id" autocomplete="off" value="{{contrato.num_partida}}" readonly>
+                            <label for="partida_id" class="section__form__label">
+                                <span class="section__form__span">No. Partida</span>
                             </label>
-                            <select id="partida_id" name="partida_id" class="form-select">
-                                <option value="">Seleccione</option>
-                                {{#each lista_partidas }}
-                                    <option value="{{ partida_id }} ">{{no_partida}} - {{descripcion}}</option>
-                                {{/each}}
-                            </select>
                         </div>
-                        <div class="form-group caja__texto" style="display: block;">
-                            <label for="proveedor_id" class="form-label">
+                        <div class="form-group">
+                            <input class="section__form__input" type="text" min="0" id="proveedor_id" name="proveedor_id" autocomplete="off" value="{{contrato.prov_nombre}}" readonly>
+                            <label for="proveedor_id" class="section__form__label">
                                 <span class="section__form__span">Proveedor</span>
                             </label>
-                            <select id="proveedor_id" name="proveedor_id" class="form-select">
-                                <option value="">Seleccione</option>
-                                {{#each lista_proveedores }}
-                                    <option value="{{ proveedor_id }} ">{{nombre}}</option>
-                                {{/each}}
-                            </select>
                         </div>
                         <div class="form-group">
                             <input class="section__form__input input-money" type="text" min="0" id="suma_total" name="suma_total" autocomplete="off" value="{{contrato.suma_total}}" required readonly>
@@ -63,14 +48,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    window.addEventListener("load", function(event) {
-        var tipo_id = {{contrato.tipo_id}};
-        var partida_id = {{contrato.partida_id}};
-        var proveedor_id = {{contrato.proveedor_id}};
-
-        document.getElementById('tipo_id').options[tipo_id].selected = true;
-        document.getElementById('partida_id').options[partida_id].selected = true;
-        document.getElementById('proveedor_id').options[proveedor_id].selected = true;
-    });
-</script>

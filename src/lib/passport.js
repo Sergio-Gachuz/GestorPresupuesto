@@ -25,7 +25,9 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 }, async(req, username, passoword, done) => {
     const { nombre_completo, cod__ver } = req.body;
-    if (cod__ver == process.env.codver) {
+    // console.log(cod__ver);
+    // console.log(process.env.COD_VER);
+    if (cod__ver == process.env.COD_VER) {
         await database.query('select usuario from usuario where usuario = ?', [username], async function(err, result, field){
             if(result.length === 0){
                 const nuevoUsuario = {

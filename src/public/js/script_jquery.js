@@ -114,10 +114,10 @@ function guardarSolicitud(event, form, titulo, texto = null) {
     }
 }
 
-function generarPDF(){
+function generarPDF(route, id){
     let timerInterval
     Swal.fire({
-        title: 'Generando PDF',
+        title: 'Generando solicitud de pago',
         timer: 2000,
         timerProgressBar: true,
         didOpen: () => {
@@ -132,7 +132,9 @@ function generarPDF(){
         }
     }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-            //Aqui va el codigo para generar el PDF
+            var url = route + id;
+            var win = window.open(url, '_blank');
+            win.focus();
         }
     })
 }

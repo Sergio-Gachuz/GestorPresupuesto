@@ -1,6 +1,11 @@
 const database = require('../database');
-const layout = {layout: 'main'};
 const helpers = require('../lib/helpers');
+const puppeteer = require('puppeteer');
+const path = require('path');
+const fs = require('fs-extra');
+const { readFileSync } = require('fs');
+const hbs = require('handlebars');
+const intToText = require('numero-a-letras');
 
 const obtenerVistaNuevoSolicitud_pago = async(req, res) => {
     const lista_proveedores = await database.query('select * from proveedor');
@@ -155,6 +160,57 @@ const editarSolicitud_pago = async(req, res) => {
     res.redirect('/solicitud_pago');
 }
 
+const compilar = async function(plantilla, data){
+    const rutaArchivo = path.join(__dirname, '../views/pdfs', `${plantilla}.hbs`)
+    const html = await fs.readFile(rutaArchivo, 'utf-8')
+    return hbs.compile(html)(data);
+}
+
+const descargarPDF = async(req, res) => {  
+    const { solicitud_id } = req.params;
+
+    let navegador = await puppeteer.launch();
+    let pagina = await navegador.newPage();
+
+    const solicitud_pago = await database.query('select solicitud_id, date(created_at) as fecha, year(created_at) as anio, importe, concepto, no_partida, partida.descripcion as descripcion, nombre from solicitud_pago inner join proveedor on solicitud_pago.proveedor_id = proveedor.proveedor_id inner join partida on partida.partida_id = solicitud_pago.partida_id where solicitud_id = ?', [solicitud_id]);
+
+    const opciones = { year: 'numeric', month: 'short', day: 'numeric' };
+
+    solicitud_pago.forEach(element => {
+        element.numero_letras = intToText.NumerosALetras(element.importe);
+        element.importe = helpers.currency(element.importe);
+        element.fecha = element.fecha.toLocaleDateString('es-MX', opciones);
+    });
+
+    data = {
+        src: `data:image/jpeg; base64,${readFileSync(path.join(__dirname, '../public/img/celaya.png')).toString('base64')}`,
+        folio: 'COM.SOC.' + solicitud_pago[0].solicitud_id + '.' + solicitud_pago[0].anio,
+        fecha: solicitud_pago[0].fecha,
+        beneficiario: solicitud_pago[0].nombre,
+        no_partida: solicitud_pago[0].no_partida,
+        desc: solicitud_pago[0].descripcion,
+        importe: solicitud_pago[0].importe,
+        numero_letras: solicitud_pago[0].numero_letras,
+        concepto: solicitud_pago[0].concepto,
+    }
+
+    const contenido = await compilar('solicitud', data)
+
+    await pagina.setContent(contenido);
+    await pagina.waitForSelector("img");
+    await pagina.emulateMediaType('screen');
+    
+    let pdf = await pagina.pdf({
+        format: 'A4',
+        printBackground: true
+    })
+
+    navegador.close()
+
+    res.contentType('application/pdf');
+    res.send(pdf)
+}
+
 module.exports = {
     obtenerVistaNuevoSolicitud_pago,
     añadirSolicitud_pago,
@@ -163,5 +219,6 @@ module.exports = {
     obtenerSolicitud_pagos,
     editarSolicitud_pago,
     obtenerContratosProveedor,
-    obtenerRestanteContrato
+    obtenerRestanteContrato,
+    descargarPDF
 }

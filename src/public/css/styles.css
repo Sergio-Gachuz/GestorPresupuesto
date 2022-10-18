@@ -480,6 +480,26 @@ div .buttons-pdf:hover,
     div.titulo h3{
         padding: 1rem;
     }
+
+    div.miperfil{
+        background-color: white;
+        border: var(--color-five) 0.4rem solid;
+        box-shadow:
+            1rem 1rem 0 -0.4rem var(--color-two),
+            1rem 1rem var(--color-five);
+        width: 90%;
+        height: 70vh;
+        padding: 1rem;
+        margin: 0 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    div.section__datos{
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 760px) {
@@ -662,5 +682,19 @@ div .buttons-pdf:hover,
     div#contenido__form .section__form .section__form__input:valid + .section__form__label .section__form__span{
         margin-left: -1.6rem;
         transform: translateY(-100%);
+    }
+
+    div.miperfil{
+        background: white;
+        text-align: center;
+        height: 80vh;
+    }
+
+    div.miperfil hr{
+        margin: 15px 0;
+    }
+
+    div.miperfil #perfil{
+        margin-bottom: 20px;
     }
 }

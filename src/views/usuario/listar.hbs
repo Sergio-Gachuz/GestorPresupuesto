@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="titulo">
+                <h3>Usuarios Registrados</h3>
+            </div>
+            <div class="contenido">
+                {{> alerta }}
+        
+                <table class="display nowrap" cellspacing="0" id="table" width="100%">
+                    <thead>
+                        <th>Nombre </th>
+                        <th>Usuario</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {{#each lista_usuarios }}
+                            <tr>
+                                <td data-label="nombre_completo">{{nombre_completo}} </td>
+                                <td data-label="usuario">{{usuario}}</td>
+                                <td style="text-align: center;">
+                    
+                                    <a class="btn btn-danger" onclick="eliminarRegistro('usuario/borrar/', {{usuario_id}})"><i class="fa-solid fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {{else}}
+                            <tr>
+                                <td>No hay usuarios registrados</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+</div>

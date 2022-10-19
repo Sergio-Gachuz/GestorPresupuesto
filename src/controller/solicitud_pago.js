@@ -184,7 +184,7 @@ const descargarPDF = async(req, res) => {
 
     data = {
         src: `data:image/jpeg; base64,${readFileSync(path.join(__dirname, '../public/img/celaya.png')).toString('base64')}`,
-        folio: 'COM.SOC.' + solicitud_pago[0].solicitud_id + '.' + solicitud_pago[0].anio,
+        folio: 'COM.SOC. ' + solicitud_pago[0].solicitud_id + '/' + solicitud_pago[0].anio,
         fecha: solicitud_pago[0].fecha,
         beneficiario: solicitud_pago[0].nombre,
         no_partida: solicitud_pago[0].no_partida,
@@ -201,7 +201,7 @@ const descargarPDF = async(req, res) => {
     await pagina.emulateMediaType('screen');
     
     let pdf = await pagina.pdf({
-        format: 'A4',
+        format: 'letter',
         printBackground: true
     })
 

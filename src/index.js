@@ -65,6 +65,7 @@ app.use('/proveedor', require('./routes/proveedor'));
 app.use('/partida', require('./routes/partida'));
 app.use('/contrato', require('./routes/contrato'));
 app.use('/solicitud_pago', require('./routes/solicitud_pago'));
+app.use('/usuario', require('./routes/usuario'));
 
 //* Publico
 app.use(express.static(path.join(__dirname, 'public')));

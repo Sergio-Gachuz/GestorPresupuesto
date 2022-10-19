@@ -697,4 +697,8 @@ div .buttons-pdf:hover,
     div.miperfil #perfil{
         margin-bottom: 20px;
     }
+
+    div.section__imagen{
+        margin-bottom: 50px;
+    }
 }

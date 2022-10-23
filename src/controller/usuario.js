@@ -14,19 +14,20 @@ const profile = (req, res) => {
 }
 
 const obtenerUsuarios = async(req, res) => {
-    const lista_usuarios = await database.query('select * from usuario')
+    const lista_usuarios = await database.query('select * from usuario where usuario_id != ?', [req.user.usuario_id])
     res.render('usuario/listar', {layout: 'main',lista_usuarios});
 }
 
-const eliminarPartida = async(req, res)=>{
-    const { partida_id } = req.params
-    await database.query('delete from partida where partida_id = ?', [partida_id], (err, result) => {
+const eliminarUsuario = async(req, res)=>{
+    const { usuario_id } = req.params
+    await database.query('delete from usuario where usuario_id = ?', [usuario_id], (err, result) => {
         if (err) {
-            req.flash('message', 'No se puede eliminar esta partida ya que se encuentra en uso.');
-            res.redirect('/partida');
+            console.log(err);
+            req.flash('message', 'Error al eliminar este usuario');
+            res.redirect('/usuario/');
         } else {
-            req.flash('success', 'Partida eliminado correctamente.');
-            res.redirect('/partida');
+            req.flash('success', 'Usuario eliminado correctamente.');
+            res.redirect('/usuario/');
         }
     });
 }
@@ -35,5 +36,6 @@ module.exports = {
     vistaSignUp,
     vistaLogIn,
     profile, 
-    obtenerUsuarios
+    obtenerUsuarios,
+    eliminarUsuario
 }

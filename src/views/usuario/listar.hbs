@@ -19,13 +19,12 @@
                                 <td data-label="nombre_completo" style="width: 400px;">{{nombre_completo}} </td>
                                 <td data-label="usuario">{{usuario}}</td>
                                 <td style="text-align: center;">
-                    
-                                    <a class="btn btn-danger" onclick="eliminarRegistro('usuario/borrar/', {{usuario_id}})"><i class="fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-danger" onclick="eliminarRegistro('borrar/', {{usuario_id}})"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         {{else}}
                             <tr>
-                                <td>No hay usuarios registrados</td>
+                                <td>No hay más usuarios registrados</td>
                             </tr>
                         {{/each}}
                     </tbody>

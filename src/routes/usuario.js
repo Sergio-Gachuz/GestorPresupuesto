@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { isLoggedIn } = require('../lib/auth');
-const { obtenerUsuarios } = require('../controller/usuario');
+const { obtenerUsuarios, eliminarUsuario } = require('../controller/usuario');
 
 router.get('/',isLoggedIn, obtenerUsuarios)
 
-//router.get('/borrar/:partida_id', isLoggedIn, eliminarPartida)
+router.get('/borrar/:usuario_id', isLoggedIn, eliminarUsuario)
 
 module.exports = router;

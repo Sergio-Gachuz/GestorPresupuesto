@@ -130,10 +130,10 @@ const eliminarSolicitud_pago = async(req, res)=>{
     await database.query('delete from solicitud_pago where solicitud_id = ?', [solicitud_id], (err, result) => {
         if (err) {
             req.flash('message', 'Error al eliminar. Intente más tarde.');
-            res.redirect('/partida');
+            res.redirect('/solicitud_pago');
         } else {
             req.flash('success', 'Solicitud de pago eliminada correctamente.');
-            res.redirect('/partida');
+            res.redirect('/solicitud_pago');
         }
     });
 }

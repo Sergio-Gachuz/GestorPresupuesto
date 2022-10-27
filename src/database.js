@@ -11,22 +11,13 @@ const pool = mysql.createConnection({
     database: process.env.DATABASE
 })
 
-pool.connect((err, connection) => {
+pool.connect(function(err) {
     if (err) {
-        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
-            console.error('Database connection was closed');
-        }
-        if (err.code === 'ER_CON_COUNT_ERROR') {
-            console.error('Database has to many connections');
-        }
-        if (err.code === 'ECONNREFUSED') {
-            console.error('Database connection was refused');
-        }
+      console.error('error connecting: ' + err.stack);
+      return;
     }
-
-    if (connection) connection.release();
-    console.log('DB is connected');
-    return
+   
+    console.log('connected as id ' + connection.threadId);
 });
 
 //! Convertir callbacks a promesas

@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const {promisify} = require('util');
 
 // const pool = mysql.createPool(process.env.DATABASE);
-const pool = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
     port: process.env.DBPORT,
@@ -11,13 +11,22 @@ const pool = mysql.createConnection({
     database: process.env.DATABASE
 })
 
-pool.connect(function(err) {
+pool.getConnection((err, connection) => {
     if (err) {
-      console.error('error connecting: ' + err.stack);
-      return;
+        if(err.code === 'PROTOCOL_CONNECTION_LOST'){
+            console.error('Database connection was closed');
+        }
+        if (err.code === 'ER_CON_COUNT_ERROR') {
+            console.error('Database has to many connections');
+        }
+        if (err.code === 'ECONNREFUSED') {
+            console.error('Database connection was refused');
+        }
     }
-   
-    console.log('connected as id ' + connection.threadId);
+
+    if (connection) connection.release();
+    console.log('DB is connected');
+    return
 });
 
 //! Convertir callbacks a promesas

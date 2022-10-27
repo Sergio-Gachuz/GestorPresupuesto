@@ -3,12 +3,12 @@ const mysql = require('mysql');
 const {promisify} = require('util');
 
 // const pool = mysql.createPool(process.env.DATABASE);
-const pool = mysql.createPool({
-    host: process.env.host,
-    user: process.env.user,
+const pool = mysql.createConnection({
+    host: process.env.HOST,
+    user: process.env.USER,
     port: process.env.DBPORT,
     password: process.env.PASSWORD,
-    database: process.env.database
+    database: process.env.DATABASE
 })
 
 pool.getConnection((err, connection) => {

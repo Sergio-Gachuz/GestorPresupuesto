@@ -6,7 +6,6 @@ const {promisify} = require('util');
 const pool = mysql.createPool({
     host: process.env.HOST,
     user: process.env.USER,
-    port: process.env.DBPORT,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 })

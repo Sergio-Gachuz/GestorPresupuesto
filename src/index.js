@@ -10,11 +10,10 @@ const mysqlStorage = require('express-mysql-session');
 const passport = require('passport');
 
 const datosDB = {
-    'host': process.env.host,
-    'user': process.env.user,
-    'password': '',
-    'database': process.env.database
-
+    'host': process.env.HOST,
+    'user': process.env.USER,
+    'password': process.env.PASSWORD,
+    'database': process.env.DATABASE
 }
 
 //* Inicializaciones
